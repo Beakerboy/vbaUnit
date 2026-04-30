@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vba_unit"
+version = "0.0.1"
+authors = [
+  { name="Kevin Nowaczyk", email="beakerboy99@yahoo.com" },
+]
+description = "Test Vba Code."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  'pyvba_interpreter @ git+https://github.com/Beakerboy/PyVBA-Interpreter@dev'
+]
+[project.optional-dependencies]
+tests = [
+  'coveralls',
+  'flake8-annotations',
+  'mypy',
+  'pep8-naming',
+  'pytest',
+  'pytest-cov',
+  'pytest-mock'
+]
+[project.urls]
+"Homepage" = "https://github.com/Beakerboy/vbaUnit"
+"Bug Tracker" = "https://github.com/Beakerboy/vbaUnit/issues"
+    
+[tool.pytest.ini_options]
+pythonpath = "src:tests"
+testpaths = [
+    "tests",
+]
