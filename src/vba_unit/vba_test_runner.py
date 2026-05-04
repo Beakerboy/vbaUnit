@@ -29,7 +29,7 @@ def run_tests() -> None:
     project_name = "vbaproject"
     test_project_name = "vbatests"
     table = SymbolTable()
-    
+
     # 1. Parse source code
     src_files = glob.glob('src/project_name/*/*.bas')
     for file_path in src_files:
@@ -56,10 +56,10 @@ def run_tests() -> None:
             }
         }
     }
-    
+
     # 4. Find and Execute Tests
     test_modules = table.definitions[test_project_name]["modules"]
-    
+
     report = []
     for mod_name, module in test_modules.items():
         if mod_name.startswith("Test"):
