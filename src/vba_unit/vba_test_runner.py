@@ -8,7 +8,7 @@ from pyvba_interpreter.vba_visitor import VbaVisitor
 from typing import TypeVar
 
 
-T = TypeVar('T', bound = 'TestResult')
+T = TypeVar('T', bound='TestResult')
 
 
 class TestResult:
