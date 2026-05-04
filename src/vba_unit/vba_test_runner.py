@@ -53,22 +53,21 @@ def main() -> None:
     )
 
     args = parser.parse_args()
-    run_tests(args)
+    run_tests(args.src, args.tests, args.project)
 
 
-def run_tests(args: str) -> None:
-    project_name = args.project
+def run_tests(src: str, tests: str, project_name: str) -> None:
     test_project_name = "vbatests"
     table = SymbolTable()
 
     # 1. Parse source code
-    src_pattern = os.path.join(args.src, '*', '*.bas')
+    src_pattern = os.path.join(src, '*', '*.bas')
     src_files = glob.glob(src_pattern)
     for file_path in src_files:
         _parse_file(file_path, project_name, table)
 
     # 2. Parse test code
-    test_pattern = os.path.join(args.tests, '*', '*.bas')
+    test_pattern = os.path.join(tests, '*.bas')
     test_files = glob.glob(test_pattern)
     for file_path in test_files:
         _parse_file(file_path, test_project_name, table)
