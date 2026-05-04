@@ -56,7 +56,7 @@ def run_tests() -> None:
                 "params": [{
                     "name": "assertion",
                     "optional": False,
-                    "default: ""
+                    "default": ""
                 }]
             }
         }
