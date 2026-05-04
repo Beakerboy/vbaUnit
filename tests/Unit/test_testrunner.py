@@ -45,7 +45,7 @@ def test_main() -> None:
                 "functions": {
                     "assert": {
                         "name": "assert",
-                        "type": FunctionType.FUNCTION,
+                        "type": FunctionType.SUB,
                         "handle": getattr(Debug, "vba_assert"),
                         "module": "debug",
                         "params": [{
