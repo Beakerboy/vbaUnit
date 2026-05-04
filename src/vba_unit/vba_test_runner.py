@@ -22,7 +22,7 @@ class TestResult:
 
 class Debug:
     @staticmethod
-    def assert(expression: bool) -> None:
+    def vba_assert(expression: bool) -> None:
         if expression:
             raise Exception()
 
@@ -53,7 +53,7 @@ def run_tests():
             "assert": {
                 "name": "msgbox",
                 "type": FunctionType.FUNCTION,
-                "handle": getattr(Debug, "assert"),
+                "handle": getattr(Debug, "vba_assert"),
                 "module": "debug"
             }
         }
