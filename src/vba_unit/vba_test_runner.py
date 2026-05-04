@@ -67,7 +67,7 @@ def run_tests(src: str, tests: str, project_name: str) -> None:
         _parse_file(file_path, project_name, table)
 
     # 2. Parse test code
-    test_pattern = os.path.join(tests, '*', '*.bas')
+    test_pattern = os.path.join(tests, '*.bas')
     test_files = glob.glob(test_pattern)
     for file_path in test_files:
         _parse_file(file_path, test_project_name, table)
