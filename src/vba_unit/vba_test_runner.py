@@ -60,23 +60,27 @@ def run_tests(project_name: str) -> None:
     visitor = VbaVisitor(table)
 
     # Override Assert
-    visitor.table.library_definitions["vbatests"]["modules"]["debug"] = {
-        "name": "interaction",
-        "type": FunctionType.MODULE,
-        "functions": {
-            "assert": {
-                "name": "assert",
-                "type": FunctionType.FUNCTION,
-                "handle": getattr(Debug, "vba_assert"),
-                "module": "debug",
-                "params": [{
-                    "name": "assertion",
-                    "optional": False,
-                    "default": ""
-                }]
+    visitor.table.library_definitions["special"] = {
+        "modules": {
+            "debug" : {
+                "name": "debug",
+                "type": FunctionType.MODULE,
+                "functions": {
+                    "assert": {
+                        "name": "assert",
+                        "type": FunctionType.FUNCTION,
+                        "handle": getattr(Debug, "vba_assert"),
+                        "module": "debug",
+                        "params": [{
+                            "name": "assertion",
+                            "optional": False,
+                            "default": ""
+                        }]
+                    }
+                }
             }
         }
-    }
+    } 
 
     # 4. Find and Execute Tests
     test_modules = table.definitions[test_project_name]["modules"]
