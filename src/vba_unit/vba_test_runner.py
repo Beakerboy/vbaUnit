@@ -15,7 +15,7 @@ class TestResult:
     def __init__(self: T, name: str) -> None:
         self.name = name
         self.passed = False
-        self.error = None
+        self.error = ""
 
 
 class Debug:
