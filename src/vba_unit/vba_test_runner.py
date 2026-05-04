@@ -56,7 +56,7 @@ def main() -> None:
     run_tests(args)
 
 
-def run_tests(args: str) -> None:
+def run_tests(args: "Namespace") -> None:
     project_name = args.project
     test_project_name = "vbatests"
     table = SymbolTable()
