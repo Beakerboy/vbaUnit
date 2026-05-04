@@ -17,8 +17,8 @@ def test_main(mocker: MockerFixture) -> None:
     main()
     assert mock_print.call_count == 4
     assert mock_print.call_args_list[0].args[0] == "\n--- VBA Test Report ---"
-    assert mock_print.call_args_list[1].args[0] == "test"
-    assert mock_print.call_args_list[2].args[0] == "test"
+    assert mock_print.call_args_list[1].args[0] == "test_boolean.test_true: PASS"
+    assert mock_print.call_args_list[2].args[0] == "test_boolean.test_and: PASS"
     assert mock_print.call_args_list[3].args[0] == (
         "-----------------------\nSummary: 2/2 passed."
     )
