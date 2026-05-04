@@ -67,9 +67,9 @@ def run_tests() -> None:
 
     report = []
     for mod_name, module in test_modules.items():
-        if mod_name.startswith("Test"):
+        if mod_name.startswith("test"):
             for func_name, func in module["functions"].items():
-                if func_name.startswith("Test"):
+                if func_name.startswith("test"):
                     result = TestResult(f"{mod_name}.{func_name}")
                     try:
                         visitor.run_function(func, [])
