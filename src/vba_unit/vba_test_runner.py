@@ -49,10 +49,15 @@ def run_tests() -> None:
         "type": FunctionType.MODULE,
         "functions": {
             "assert": {
-                "name": "msgbox",
+                "name": "assert",
                 "type": FunctionType.FUNCTION,
                 "handle": getattr(Debug, "vba_assert"),
-                "module": "debug"
+                "module": "debug",
+                "params": [{
+                    "name": "assertion",
+                    "optional": False,
+                    "default: ""
+                }]
             }
         }
     }
