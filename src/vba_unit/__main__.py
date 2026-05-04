@@ -122,10 +122,7 @@ def run_tests(src: str, tests: str, project_name: str) -> None:
 
 
 def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
-    try:
-        input_stream = FileStream(file_path)
-    except Exception:
-        raise Exception("Bad File: " + file_path)
+    input_stream = FileStream(file_path, encoding="cp1252")
     lexer = vbaLexer(input_stream)
     ts = CommonTokenStream(lexer)
     parser = vbaParser(ts)
