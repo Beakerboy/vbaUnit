@@ -1,4 +1,6 @@
+import argparse
 import glob
+import os
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
@@ -25,13 +27,14 @@ class Debug:
             raise Exception()
 
 
-def run_tests() -> None:
+def run_tests(project_name: str) -> None:
     project_name = "vbaproject"
     test_project_name = "vbatests"
     table = SymbolTable()
 
     # 1. Parse source code
-    src_files = glob.glob('src/project_name/*/*.bas')
+    src_pattern = os.path.join('src', project_name, '*', '*.bas')
+    src_files = glob.glob(src_pattern)
     for file_path in src_files:
         _parse_file(file_path, project_name, table)
 
@@ -106,4 +109,13 @@ def _generate_report(results: list) -> None:
 
 
 if __name__ == "__main__":
-    run_tests()
+    parser = argparse.ArgumentParser(description="VBA ANTLR Test Runner")
+    parser.add_argument(
+        "--project", 
+        type=str, 
+        required=True, 
+        help="The name of the project to test (matches folder name in src/)"
+    )
+    
+    args = parser.parse_args()
+    run_tests(args.project)
