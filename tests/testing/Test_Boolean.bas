@@ -6,5 +6,6 @@ Sub Test_False()
     Debug.Assert False
 End Sub
 Sub Test_And()
-    Debug.Assert (True And True)
+    TestValue = True And True
+    Debug.Assert TestValue
 End Sub
