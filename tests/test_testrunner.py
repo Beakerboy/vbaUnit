@@ -1,11 +1,10 @@
 import os
 from vba_unit.vba_test_runner import main
 from pytest_mock import MockerFixture
-from unittest.mock import patch
 
 
-@patch('builtins.print')
-def test_main(mocker: MockerFixture, mock_print: str) -> None:
+def test_main(mocker: MockerFixture) -> None:
+    mock_print = mocker.patch("builtins.print")
     mocker.patch(
         "sys.argv",
         [
