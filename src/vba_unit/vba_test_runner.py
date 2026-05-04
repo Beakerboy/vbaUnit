@@ -25,7 +25,7 @@ class Debug:
             raise Exception()
 
 
-def run_tests():
+def run_tests() -> None:
     project_name = "vbaproject"
     test_project_name = "vbatests"
     table = SymbolTable()
@@ -79,7 +79,7 @@ def run_tests():
     _generate_report(report)
 
 
-def _parse_file(file_path, project, table):
+def _parse_file(file_path, project, table) -> None:
     input_stream = FileStream(file_path)
     lexer = vbaLexer(input_stream)
     ts = CommonTokenStream(lexer)
@@ -90,7 +90,7 @@ def _parse_file(file_path, project, table):
     walker.walk(listener, tree)
 
 
-def _generate_report(results):
+def _generate_report(results) -> None:
     print("\n--- VBA Test Report ---")
     passed = 0
     for r in results:
