@@ -13,6 +13,10 @@ from typing import TypeVar
 T = TypeVar('T', bound='TestResult')
 
 
+class TestFailException(Exception):
+    pass
+
+
 class TestResult:
     def __init__(self: T, name: str) -> None:
         self.name = name
@@ -24,7 +28,7 @@ class Debug:
     @staticmethod
     def vba_assert(expression: bool) -> None:
         if not expression:
-            raise Exception()
+            raise TestFailException()
 
 
 def main() -> None:
@@ -96,7 +100,7 @@ def run_tests(project_name: str) -> None:
                     try:
                         visitor.run_function(func, [])
                         result.passed = True
-                    except Exception as e:
+                    except TestFailException as e:
                         result.passed = False
                         result.error = str(e)
                     report.append(result)
