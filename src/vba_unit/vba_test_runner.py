@@ -1,21 +1,32 @@
 import os
 import glob
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
-# Assuming your generated parser/lexer and visitor are imported here
-# from your_antlr_module import VbaLexer, VbaParser, VbaListener, VbaVisitor, SymbolTable
+from antlr4 import CommonTokenStream, FileStream, ParseTreeWalker
+from antlr4_vba.vbaLexer import vbaLexer as Lexer
+from antlr4_vba.vbaParser import vbaParser as Parser
+from pyvba_interpreter.symbol_table import FunctionType, SymbolTable
+from pyvba_interpreter.vba_listener import VbaListener
+from pyvba_interpreter.vba_visitor import VbaVisitor
+from typing import TypeVar
+
+
+T = TypeVar('T', bound = 'TestResult')
+
 
 class TestResult:
-    def __init__(self, name):
+    def __init__(self: T, name: str) -> None:
         self.name = name
         self.passed = False
         self.error = None
 
-class Debug:
 
-    def assert(self: T, expression: bool) -> None:
+class Debug:
+    @staticmethod
+    def assert(expression: bool) -> None:
         if expression:
             raise Exception()
-    
+
+
 def run_tests():
     project_name = "vbaproject"
     test_project_name = "vbatests"
@@ -69,6 +80,7 @@ def run_tests():
     # 5. Generate Report
     _generate_report(report)
 
+
 def _parse_file(file_path, project, table):
     input_stream = FileStream(file_path)
     lexer = VbaLexer(input_stream)
@@ -79,6 +91,7 @@ def _parse_file(file_path, project, table):
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
 
+
 def _generate_report(results):
     print("\n--- VBA Test Report ---")
     passed = 0
@@ -87,6 +100,7 @@ def _generate_report(results):
         print(f"{r.name}: {status}")
         if r.passed: passed += 1
     print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
+
 
 if __name__ == "__main__":
     run_tests()
