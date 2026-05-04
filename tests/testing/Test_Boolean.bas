@@ -1,10 +1,10 @@
 Attribute VB_Name = "Test_Boolean"
 Sub Test_True()
-    Assert True
+    Debug.Assert True
 End Sub
 Sub Test_False()
-    Assert False
+    Debug.Assert False
 End Sub
 Sub Test_And()
-    Assert True And True
+    Debug.Assert True And True
 End Sub
