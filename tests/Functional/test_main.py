@@ -8,9 +8,7 @@ def test_main(mocker: MockerFixture) -> None:
     mocker.patch(
         "sys.argv",
         [
-            "vba_test_runner.py",
-            "--project",
-            "VbaProject"
+            "vba_test_runner.py"
         ],
     )
     os.chdir("./tests")
