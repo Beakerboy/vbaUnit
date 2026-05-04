@@ -79,7 +79,7 @@ def run_tests() -> None:
     _generate_report(report)
 
 
-def _parse_file(file_path, project, table) -> None:
+def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
     input_stream = FileStream(file_path)
     lexer = vbaLexer(input_stream)
     ts = CommonTokenStream(lexer)
@@ -90,13 +90,14 @@ def _parse_file(file_path, project, table) -> None:
     walker.walk(listener, tree)
 
 
-def _generate_report(results) -> None:
+def _generate_report(results: list) -> None:
     print("\n--- VBA Test Report ---")
     passed = 0
     for r in results:
         status = "PASS" if r.passed else f"FAIL: {r.error}"
         print(f"{r.name}: {status}")
-        if r.passed: passed += 1
+        if r.passed:
+            passed += 1
     print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
 
 
