@@ -1,39 +1,57 @@
-import os
+import argparse
 import glob
+import os
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
-from antlr4 import CommonTokenStream, FileStream, ParseTreeWalker
-from antlr4_vba.vbaLexer import vbaLexer as Lexer
-from antlr4_vba.vbaParser import vbaParser as Parser
+from antlr4_vba.vbaLexer import vbaLexer
+from antlr4_vba.vbaParser import vbaParser
 from pyvba_interpreter.symbol_table import FunctionType, SymbolTable
 from pyvba_interpreter.vba_listener import VbaListener
 from pyvba_interpreter.vba_visitor import VbaVisitor
 from typing import TypeVar
 
 
-T = TypeVar('T', bound = 'TestResult')
+T = TypeVar('T', bound='TestResult')
+
+
+class TestFailException(Exception):
+    pass
 
 
 class TestResult:
     def __init__(self: T, name: str) -> None:
         self.name = name
         self.passed = False
-        self.error = None
+        self.error = ""
 
 
 class Debug:
     @staticmethod
-    def assert(expression: bool) -> None:
-        if expression:
-            raise Exception()
+    def vba_assert(expression: bool) -> None:
+        if not expression:
+            raise TestFailException()
 
 
-def run_tests():
+def main() -> None:
+    parser = argparse.ArgumentParser(description="VBA ANTLR Test Runner")
+    parser.add_argument(
+        "--project",
+        type=str,
+        required=True,
+        help="The name of the project to test (matches folder name in src/)"
+    )
+
+    args = parser.parse_args()
+    run_tests(args.project)
+
+
+def run_tests(project_name: str) -> None:
     project_name = "vbaproject"
     test_project_name = "vbatests"
     table = SymbolTable()
-    
+
     # 1. Parse source code
-    src_files = glob.glob('src/project_name/*/*.bas')
+    src_pattern = os.path.join('src', project_name, '*', '*.bas')
+    src_files = glob.glob(src_pattern)
     for file_path in src_files:
         _parse_file(file_path, project_name, table)
 
@@ -46,33 +64,43 @@ def run_tests():
     visitor = VbaVisitor(table)
 
     # Override Assert
-    visitor.table.library_definitions["vbatests"]["modules"]["debug"] = {
-        "name": "interaction",
-        "type": FunctionType.MODULE,
-        "functions": {
-            "assert": {
-                "name": "msgbox",
-                "type": FunctionType.FUNCTION,
-                "handle": getattr(Debug, "assert"),
-                "module": "debug"
+    visitor.table.library_definitions["special"] = {
+        "name": "special",
+        "type": FunctionType.PROJECT,
+        "modules": {
+            "debug": {
+                "name": "debug",
+                "type": FunctionType.MODULE,
+                "functions": {
+                    "assert": {
+                        "name": "assert",
+                        "type": FunctionType.SUB,
+                        "handle": getattr(Debug, "vba_assert"),
+                        "module": "debug",
+                        "params": [{
+                            "name": "assertion",
+                            "optional": False,
+                            "default": ""
+                        }]
+                    }
+                }
             }
         }
     }
-    
+
     # 4. Find and Execute Tests
     test_modules = table.definitions[test_project_name]["modules"]
-    
+
     report = []
     for mod_name, module in test_modules.items():
-        if mod_name.startswith("Test"):
+        if mod_name.startswith("test"):
             for func_name, func in module["functions"].items():
-                if func_name.startswith("Test"):
+                if func_name.startswith("test"):
                     result = TestResult(f"{mod_name}.{func_name}")
                     try:
-                        visitor.current_assertion_passed = True
                         visitor.run_function(func, [])
                         result.passed = True
-                    except Exception as e:
+                    except TestFailException as e:
                         result.passed = False
                         result.error = str(e)
                     report.append(result)
@@ -81,26 +109,27 @@ def run_tests():
     _generate_report(report)
 
 
-def _parse_file(file_path, project, table):
+def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
     input_stream = FileStream(file_path)
-    lexer = VbaLexer(input_stream)
+    lexer = vbaLexer(input_stream)
     ts = CommonTokenStream(lexer)
-    parser = VbaParser(ts)
+    parser = vbaParser(ts)
     tree = parser.module()
     listener = VbaListener(project, table)
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
 
 
-def _generate_report(results):
+def _generate_report(results: list) -> None:
     print("\n--- VBA Test Report ---")
     passed = 0
     for r in results:
         status = "PASS" if r.passed else f"FAIL: {r.error}"
         print(f"{r.name}: {status}")
-        if r.passed: passed += 1
+        if r.passed:
+            passed += 1
     print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
 
 
 if __name__ == "__main__":
-    run_tests()
+    main()
