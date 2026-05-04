@@ -27,7 +27,8 @@ tests = [
   'pep8-naming',
   'pytest',
   'pytest-cov',
-  'pytest-mock'
+  'pytest-mock',
+  'types-antlr4-python3-runtime'
 ]
 [project.urls]
 "Homepage" = "https://github.com/Beakerboy/vbaUnit"
