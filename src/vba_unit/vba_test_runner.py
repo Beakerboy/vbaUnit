@@ -53,7 +53,7 @@ def main() -> None:
     )
 
     args = parser.parse_args()
-    run_tests(args.src, srgs.tests, args.project)
+    run_tests(args.src, args.tests, args.project)
 
 
 def run_tests(src: str, tests: str, project_name: str) -> None:
