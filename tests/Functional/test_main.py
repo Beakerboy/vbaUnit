@@ -19,7 +19,7 @@ def test_main(mocker: MockerFixture) -> None:
     messages = [
         "\n--- VBA Test Report ---",
         "test_boolean.test_true: PASS",
-        "test_boolean.test_false: FAIL:",
+        "test_boolean.test_false: FAIL: ",
         "test_boolean.test_and: PASS",
         "-----------------------\nSummary: 2/3 passed."
     ]
