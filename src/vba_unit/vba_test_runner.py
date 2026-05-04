@@ -61,6 +61,8 @@ def run_tests(project_name: str) -> None:
 
     # Override Assert
     visitor.table.library_definitions["special"] = {
+        "name": "special",
+        "type": FunctionType.PROJECT,
         "modules": {
             "debug": {
                 "name": "debug",
