@@ -66,7 +66,6 @@ def test_main() -> None:
         if mod_name.startswith("test"):
             for func_name, func in module["functions"].items():
                 if func_name.startswith("test"):
-                    result = TestResult(f"{mod_name}.{func_name}")
                     visitor.run_function(func, [])
 
 
