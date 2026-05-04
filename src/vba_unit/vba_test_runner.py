@@ -26,6 +26,17 @@ class Debug:
         if expression:
             raise Exception()
 
+def main() -> None:
+    parser = argparse.ArgumentParser(description="VBA ANTLR Test Runner")
+    parser.add_argument(
+        "--project",
+        type=str,
+        required=True,
+        help="The name of the project to test (matches folder name in src/)"
+    )
+
+    args = parser.parse_args()
+    run_tests(args.project)
 
 def run_tests(project_name: str) -> None:
     project_name = "vbaproject"
@@ -109,13 +120,4 @@ def _generate_report(results: list) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="VBA ANTLR Test Runner")
-    parser.add_argument(
-        "--project",
-        type=str,
-        required=True,
-        help="The name of the project to test (matches folder name in src/)"
-    )
-
-    args = parser.parse_args()
-    run_tests(args.project)
+    main()
