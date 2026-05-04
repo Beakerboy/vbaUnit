@@ -23,8 +23,7 @@ class TestResult:
 class Debug:
     @staticmethod
     def vba_assert(expression: bool) -> None:
-        if not expression:
-            raise Exception()
+        raise Exception(str(expression))
 
 
 def main() -> None:
