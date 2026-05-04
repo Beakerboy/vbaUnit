@@ -34,10 +34,22 @@ class Debug:
 def main() -> None:
     parser = argparse.ArgumentParser(description="VBA ANTLR Test Runner")
     parser.add_argument(
+        "--src",
+        type=str,
+        default="./src",
+        help="The path to your project."
+    )
+    parser.add_argument(
+        "--tests",
+        type=str,
+        default="./tests",
+        help="The path to the test files"
+    )
+    parser.add_argument(
         "--project",
         type=str,
-        required=True,
-        help="The name of the project to test (matches folder name in src/)"
+        default="VbaProject",
+        help="The name of the project"
     )
 
     args = parser.parse_args()
