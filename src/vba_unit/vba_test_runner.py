@@ -26,6 +26,7 @@ class Debug:
         if expression:
             raise Exception()
 
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="VBA ANTLR Test Runner")
     parser.add_argument(
@@ -37,6 +38,7 @@ def main() -> None:
 
     args = parser.parse_args()
     run_tests(args.project)
+
 
 def run_tests(project_name: str) -> None:
     project_name = "vbaproject"
