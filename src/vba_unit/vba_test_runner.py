@@ -81,9 +81,9 @@ def run_tests():
 
 def _parse_file(file_path, project, table):
     input_stream = FileStream(file_path)
-    lexer = VbaLexer(input_stream)
+    lexer = vbaLexer(input_stream)
     ts = CommonTokenStream(lexer)
-    parser = VbaParser(ts)
+    parser = vbaParser(ts)
     tree = parser.module()
     listener = VbaListener(project, table)
     walker = ParseTreeWalker()
