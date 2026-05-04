@@ -1,5 +1,5 @@
 import os
-from vba_unit.vba_test_runner import run_tests
+from vba_unit.vba_test_runner import main
 from pytest_mock import MockerFixture
 
 
