@@ -8,6 +8,13 @@ from pyvba_interpreter.vba_listener import VbaListener
 from pyvba_interpreter.vba_visitor import VbaVisitor
 
 
+class Debug:
+    @staticmethod
+    def vba_assert(expression: bool) -> None:
+        if expression:
+            raise Exception()
+
+
 def test_main() -> None:
     project_name = "vbaproject"
     test_project_name = "vbatests"
