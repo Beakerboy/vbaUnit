@@ -15,7 +15,7 @@ def test_main(mocker: MockerFixture) -> None:
     )
     os.chdir("./tests")
     main()
-    
+
     messages = [
         "\n--- VBA Test Report ---",
         "test_boolean.test_true: PASS",
