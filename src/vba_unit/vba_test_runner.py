@@ -72,7 +72,6 @@ def run_tests() -> None:
                 if func_name.startswith("Test"):
                     result = TestResult(f"{mod_name}.{func_name}")
                     try:
-                        visitor.current_assertion_passed = True
                         visitor.run_function(func, [])
                         result.passed = True
                     except Exception as e:
