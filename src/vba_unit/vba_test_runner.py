@@ -70,7 +70,7 @@ def run_tests(project_name: str) -> None:
                 "functions": {
                     "assert": {
                         "name": "assert",
-                        "type": FunctionType.FUNCTION,
+                        "type": FunctionType.SUB,
                         "handle": getattr(Debug, "vba_assert"),
                         "module": "debug",
                         "params": [{
