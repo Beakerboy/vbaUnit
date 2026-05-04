@@ -15,4 +15,6 @@ def test_main(mocker: MockerFixture) -> None:
     )
     os.chdir("./tests")
     main()
-    mock_print.assert_called_with("-----------------------\nSummary: 2/2 passed.")
+    mock_print.assert_called_with(
+        "-----------------------\nSummary: 2/2 passed."
+    )
