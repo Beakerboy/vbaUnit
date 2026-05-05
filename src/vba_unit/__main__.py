@@ -117,15 +117,15 @@ def generate_minimal_report(visited_lines, file_path, source_code):
     }
 
 def coveralls_report(visited_lines):
-    with open(file_path, 'r') as f:
-        line_count = sum(1 for line in f)
-    coverage = [None] * line_count
-    for i in range(line_count):
-        line_num = i + 1
-        if line_num in visited_lines:
-            coverage[i] = 1
-        else:
-            coverage[i] = 0
+    # with open(file_path, 'r') as f:
+    #    line_count = sum(1 for line in f)
+    # coverage = [None] * line_count
+    # for i in range(line_count):
+    #    line_num = i + 1
+    #    if line_num in visited_lines:
+    #        coverage[i] = 1
+    #    else:
+    #        coverage[i] = 0
     source_code = """
 Attribute VB_Name = "Roots"
 ' Function: Discriminant
@@ -144,7 +144,7 @@ End Function
 """
     report = {
         "repo_token": "yeCb0Oq26tyTx0cvTJFp31CQXUTzUaCuD",
-        "service_name": "github",
+        "service_name": "manual",
         "service_job_id": "123456",
         "source_files": [
             {
