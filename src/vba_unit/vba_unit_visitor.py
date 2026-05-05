@@ -15,7 +15,7 @@ class VbaUnitVisitor(VbaVisitor):
         self.visited_lines: set[int] = set()
         super().__init__(table)
 
-    def visit(self: T, tree: ParseTree) -> Any:
+    def visit(self: T, tree: Tree) -> Any:
         if tree is not None:
             # Get the starting line number from the context
             # ANTLR line numbers are typically 1-indexed
