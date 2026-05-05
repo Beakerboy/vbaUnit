@@ -12,7 +12,7 @@ T = TypeVar('T', bound='VbaUnitVisitor')
 class VbaUnitVisitor(VbaVisitor):
 
     def __init__(self: T, table: SymbolTable) -> None:
-        self.visited_lines = set()
+        self.visited_lines: set[int] = set()
         super().__init__(table)
 
     def visit(self: T, tree: ParseTree) -> Any:
