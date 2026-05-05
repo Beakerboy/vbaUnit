@@ -11,11 +11,11 @@ T = TypeVar('T', bound='VbaUnitVisitor')
 
 class VbaUnitVisitor(VbaVisitor):
 
-    def __init__(self: T, table: ParseTree) -> None:
+    def __init__(self: T, table: SymbolTable) -> None:
         self.visited_lines: set[int] = set()
         super().__init__(table)
 
-    def visit(self: T, tree: Tree) -> Any:
+    def visit(self: T, tree: ParseTree) -> Any:
         if isinstance(tree, ParserRuleContext):
             # Get the starting line number from the context
             # ANTLR line numbers are typically 1-indexed
