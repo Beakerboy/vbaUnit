@@ -1,11 +1,13 @@
 from typing import TypeVar
+from vba_unit.Coverage.coverage import Coverage
+from vba_unit.Coverage.git_repo import GitRepo
 
 
 T = Typevar('T', bound='Coveralls')
 
 
 class Coveralls(Coverage):
-    def __init__(self: T) -> None:
+    def __init__(self: T, git: GitRepo) -> None:
         self.endpoint = "https://coveralls.io/api/v1/jobs"
 
     def coveralls_report() -> str:
