@@ -144,7 +144,8 @@ End Function
             {
                 "name": "src/Modules/Roots.bas",
                 "source": source_code,
-                "coverage": [1, None, None, None, None, None, None, None, None, None, None, 1, 1, 1],
+                "coverage": [1, None, None, None, None, None, None, None, None,
+                             None, None, 1, 1, 1],
             }
         ],
         "git": os.environ['GITHUB_SHA']
