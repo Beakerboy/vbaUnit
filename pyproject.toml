@@ -28,7 +28,8 @@ tests = [
   'pytest',
   'pytest-cov',
   'pytest-mock',
-  'types-antlr4-python3-runtime'
+  'types-antlr4-python3-runtime',
+  'types-requests'
 ]
 [project.urls]
 "Homepage" = "https://github.com/Beakerboy/vbaUnit"
