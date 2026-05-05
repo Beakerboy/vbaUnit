@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import requests
+import subprocess
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
