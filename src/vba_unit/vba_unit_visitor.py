@@ -7,8 +7,6 @@ T = TypeVar('T', boond='VbaUnitVisitor')
 
 
 class VbaUnitVisitor(VbaVisitor):
-    def visit()
-        pass
 
     def visitAssertStatement(
             self: T,
