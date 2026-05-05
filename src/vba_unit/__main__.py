@@ -58,6 +58,7 @@ def main() -> None:
     if args.coverage == "yes":
         coveralls_report()
 
+
 def run_tests(src: str, tests: str, project_name: str) -> None:
     test_project_name = "vbatests"
     table = SymbolTable()
