@@ -154,9 +154,5 @@ End Function
     response = requests.post(url, files={'json_file': json.dumps(report)})
     return response.json()
 
-def get_source_digest(source_code):
-    return hashlib.md5(source_code.encode('utf-8')).hexdigest()
-
-
 if __name__ == "__main__":
     main()
