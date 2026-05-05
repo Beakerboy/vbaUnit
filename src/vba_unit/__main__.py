@@ -6,8 +6,8 @@ from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
 from pyvba_interpreter.symbol_table import FunctionType, SymbolTable
 from pyvba_interpreter.vba_listener import VbaListener
-from pyvba_interpreter.vba_visitor import VbaVisitor
 from typing import TypeVar
+from vba_unit.vba_unit_visitor import VbaUnitVisitor
 
 
 T = TypeVar('T', bound='TestResult')
@@ -22,13 +22,6 @@ class TestResult:
         self.name = name
         self.passed = False
         self.error = ""
-
-
-class Debug:
-    @staticmethod
-    def vba_assert(expression: bool) -> None:
-        if not expression:
-            raise TestFailException()
 
 
 def main() -> None:
@@ -73,7 +66,7 @@ def run_tests(src: str, tests: str, project_name: str) -> None:
         _parse_file(file_path, test_project_name, table)
 
     # 3. Setup Visitor
-    visitor = VbaVisitor(table)
+    visitor = VbaUnitVisitor(table)
 
     # Override Assert
     visitor.table.library_definitions["special"] = {
