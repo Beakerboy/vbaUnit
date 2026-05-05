@@ -148,6 +148,7 @@ Public Function Discriminant(a, b, c)
     Discriminant = b ^ 2 - (4 * a * c)
 End Function
 """
+    digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
     report = {
         "repo_token": os.environ['COVERALLS_REPO_TOKEN'],
         "service_name": "manual",
@@ -155,7 +156,7 @@ End Function
         "source_files": [
             {
                 "name": "src/Modules/Roots.bas",
-                "source_digest": hashlib.md5(source_code.encode('utf-8')),
+                "source_digest": digest,
                 "source": source_code,
                 "coverage": [1, None, None, None, None, None, None, None, None,
                              None, None, 1, 1, 1],
