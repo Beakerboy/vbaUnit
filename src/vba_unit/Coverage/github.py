@@ -4,7 +4,7 @@ from typing import TypeVar
 from vba_unit.Coverage.git_repo import GitRepo
 
 
-T = Typevar('T', bound='Github')
+T = TypeVar('T', bound='Github')
 
 
 class Coveralls(GitRepo):
@@ -12,7 +12,9 @@ class Coveralls(GitRepo):
         self.job_id = os.environ['GITHUB_RUN_ID']
         self.commit_sha = commit_sha = os.environ.get('GITHUB_SHA')
         full_ref = os.environ.get('GITHUB_REF', 'master')
-        branch = full_ref.replace('refs/heads/', '').replace('refs/pull/', 'PR-')
+        self.branch = full_ref.replace(
+            'refs/heads/', ''
+        ).replace('refs/pull/', 'PR-')
         fmt = "%an%n%ae%n%cn%n%ce%n%s"
         (self.author_name,
          self.author_email,
