@@ -1,4 +1,4 @@
-from antlr4.tree.Tree import ParseTree
+from antlr4.tree.Tree import Tree
 from antlr import ParserRuleContext
 from antlr4_vba.vbaParser import vbaParser as Parser
 from pyvba_interpreter.symbol_table import SymbolTable
@@ -16,7 +16,7 @@ class VbaUnitVisitor(VbaVisitor):
         self.visited_lines: set[int] = set()
         super().__init__(table)
 
-    def visit(self: T, tree: ParseTree) -> Any:
+    def visit(self: T, tree: Tree) -> Any:
         if isinstance(tree, ParserRuleContext):
             # Get the starting line number from the context
             # ANTLR line numbers are typically 1-indexed
