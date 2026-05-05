@@ -6,7 +6,7 @@ from vba_unit.test_fail_exception import TestFailException
 T = TypeVar('T', boond='VbaUnitVisitor')
 
 
-class VbaUnitVisitor(VbaVisitor)
+class VbaUnitVisitor(VbaVisitor):
     def visit()
         pass
 
