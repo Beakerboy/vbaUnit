@@ -5,7 +5,8 @@ T = TypeVar('T', bound='GitRep')
 
 
 class GitRepo():
-    job_id: str
+    def __init__(self: T) -> None:
+        self.job_id = ''
     
     def repo(self: T) -> dict:
         return {
