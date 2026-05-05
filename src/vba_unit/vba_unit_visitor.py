@@ -1,4 +1,4 @@
-from antlr4_vba.vbaParser import ParserRuleContext, vbaParser as Parser
+from antlr4_vba.vbaParser import vbaParser as Parser
 from pyvba_interpreter.vba_visitor import VbaVisitor
 from typing import TypeVar
 from vba_unit.test_fail_exception import TestFailException
