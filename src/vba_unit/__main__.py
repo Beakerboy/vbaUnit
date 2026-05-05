@@ -108,5 +108,60 @@ def _generate_report(results: list) -> None:
     print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
 
 
+def generate_minimal_report(visited_lines, file_path, source_code):
+    coverage_data = format_coverage_array(visited_lines, source_code)
+    return {
+        "name": file_path,
+        "source": source_code,
+        "coverage": coverage_data,
+    }
+
+def coveralls_report(visited_lines):
+    with open(file_path, 'r') as f:
+        line_count = sum(1 for line in f)
+    coverage = [None] * line_count
+    for i in range(line_count):
+        line_num = i + 1
+        if line_num in visited_lines:
+            coverage[i] = 1
+        else:
+            coverage[i] = 0
+    source_code = """
+Attribute VB_Name = "Roots"
+' Function: Discriminant
+' A function to determine if the roots of a quadratic are real of complex
+'
+' Parameters:
+'    a - x² coefficiant
+'    b - x  coefficient
+'    c - constant term
+'
+' Returns:
+' a real number
+Public Function Discriminant(a, b, c)
+    Discriminant = b ^ 2 - (4 * a * c)
+End Function
+"""
+    report = {
+        "repo_token": "yeCb0Oq26tyTx0cvTJFp31CQXUTzUaCuD",
+        "service_name": "github",
+        "service_job_id": "123456",
+        "source_files": [
+            {
+                "name": "src/Modules/Roots.bas",
+                "source": source_code,
+                "coverage": [1, null, null, null, null, null, null, null, null, null, null, 1, 1, 1],
+            }
+        ],
+        "git": "c3b85fff65ec7496983d013cdc1057ccb54a3b3f"
+    }
+    url = "https://coveralls.io/api/v1/jobs"
+    response = requests.post(url, files={'json_file': json.dumps(report)})
+    return response.json()
+
+def get_source_digest(source_code):
+    return hashlib.md5(source_code.encode('utf-8')).hexdigest()
+
+
 if __name__ == "__main__":
     main()
