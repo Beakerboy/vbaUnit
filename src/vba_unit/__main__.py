@@ -1,6 +1,8 @@
 import argparse
 import glob
+import json
 import os
+import requests
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
@@ -107,14 +109,6 @@ def _generate_report(results: list) -> None:
             passed += 1
     print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
 
-
-def generate_minimal_report(visited_lines, file_path, source_code):
-    coverage_data = format_coverage_array(visited_lines, source_code)
-    return {
-        "name": file_path,
-        "source": source_code,
-        "coverage": coverage_data,
-    }
 
 def coveralls_report(visited_lines):
     # with open(file_path, 'r') as f:
