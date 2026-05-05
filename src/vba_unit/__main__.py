@@ -178,22 +178,22 @@ End Function
             }
         ],
         "git": {
-    "head": {
-        "id": commit_sha,
-        "author_name": details[0],
-        "author_email": details[1],
-        "committer_name": details[2],
-        "committer_email": details[3],
-        "message": details[4]
-    },
-    "branch": branch,
-    "remotes": [
-        {
-        "name": "origin",
-        "url": remote_url
+            "head": {
+                "id": commit_sha,
+                "author_name": details[0],
+                "author_email": details[1],
+                "committer_name": details[2],
+                "committer_email": details[3],
+                "message": details[4]
+            },
+            "branch": branch,
+            "remotes": [
+                {
+                    "name": "origin",
+                    "url": remote_url
+                }
+            ]
         }
-    ]
-}
     }
     print(report)
     url = "https://coveralls.io/api/v1/jobs"
