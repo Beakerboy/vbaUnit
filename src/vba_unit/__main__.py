@@ -151,6 +151,7 @@ End Function
 """
     digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
     commit_sha = os.environ.get('GITHUB_SHA')
+    assert commit_sha is not None
     full_ref = os.environ.get('GITHUB_REF', 'master')
     branch = full_ref.replace('refs/heads/', '').replace('refs/pull/', 'PR-')
     fmt = "%an%n%ae%n%cn%n%ce%n%s"
