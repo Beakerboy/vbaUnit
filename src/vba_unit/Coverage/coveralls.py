@@ -39,13 +39,7 @@ End Function
     digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
     commit_sha = os.environ.get('GITHUB_SHA')
     assert commit_sha is not None
-    full_ref = os.environ.get('GITHUB_REF', 'master')
-    branch = full_ref.replace('refs/heads/', '').replace('refs/pull/', 'PR-')
-    fmt = "%an%n%ae%n%cn%n%ce%n%s"
-    details = subprocess.check_output(
-        ["git", "log", "-1", f"--pretty=format:{fmt}", commit_sha],
-        text=True
-    ).splitlines()
+    
 
     # 3. Remote URL from git config
     remote_url = subprocess.check_output(
