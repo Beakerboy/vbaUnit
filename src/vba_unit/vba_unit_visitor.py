@@ -2,7 +2,7 @@ from antlr4 import ParseTree
 from antlr4_vba.vbaParser import vbaParser as Parser
 from pyvba_interpreter.symbol_table import SymbolTable
 from pyvba_interpreter.vba_visitor import VbaVisitor
-from typing import TypeVar
+from typing import Any, TypeVar
 from vba_unit.test_fail_exception import TestFailException
 
 
@@ -14,7 +14,7 @@ class VbaUnitVisitor(VbaVisitor):
     def __init__(self: T, table: SymbolTable) -> None:
         self.visited_lines = set()
         super().__init__(table)
-    
+
     def visit(self: T, tree: ParseTree) -> Any:
         if tree is not None:
             # Get the starting line number from the context
