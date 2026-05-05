@@ -14,6 +14,6 @@ class Coveralls(GitRepo):
     branch = full_ref.replace('refs/heads/', '').replace('refs/pull/', 'PR-')
     fmt = "%an%n%ae%n%cn%n%ce%n%s"
     details = subprocess.check_output(
-        ["git", "log", "-1", f"--pretty=format:{fmt}", commit_sha],
+        ["git", "log", "-1", f"--pretty=format:{fmt}", self.commit_sha],
         text=True
     ).splitlines()
