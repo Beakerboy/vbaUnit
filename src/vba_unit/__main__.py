@@ -149,6 +149,20 @@ Public Function Discriminant(a, b, c)
 End Function
 """
     digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
+    commit_sha = os.environ.get('GITHUB_SHA')
+    full_ref = os.environ.get('GITHUB_REF', 'master')
+    branch = full_ref.replace('refs/heads/', '').replace('refs/pull/', 'PR-')
+    fmt = "%an%n%ae%n%cn%n%ce%n%s"
+    details = subprocess.check_output(
+        ["git", "log", "-1", f"--pretty=format:{fmt}", commit_sha],
+        text=True
+    ).splitlines()
+
+    # 3. Remote URL from git config
+    remote_url = subprocess.check_output(
+        ["git", "config", "--get", "remote.origin.url"],
+        text=True
+    ).strip()
     report = {
         "repo_token": os.environ['COVERALLS_REPO_TOKEN'],
         "service_name": "manual",
@@ -162,7 +176,23 @@ End Function
                              None, None, 1, 1, 1],
             }
         ],
-        "git": os.environ['GITHUB_SHA']
+        "git": {
+    "head": {
+        "id": commit_sha,
+        "author_name": details[0],
+        "author_email": details[1],
+        "committer_name": details[2],
+        "committer_email": details[3],
+        "message": details[4]
+    },
+    "branch": branch,
+    "remotes": [
+        {
+        "name": "origin",
+        "url": remote_url
+        }
+    ]
+}
     }
     print(report)
     url = "https://coveralls.io/api/v1/jobs"
