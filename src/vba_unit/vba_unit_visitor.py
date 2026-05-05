@@ -1,5 +1,5 @@
 from antlr4.tree.Tree import Tree
-from antlr import ParserRuleContext
+from antlr4 import ParserRuleContext
 from antlr4_vba.vbaParser import vbaParser as Parser
 from pyvba_interpreter.symbol_table import SymbolTable
 from pyvba_interpreter.vba_visitor import VbaVisitor
