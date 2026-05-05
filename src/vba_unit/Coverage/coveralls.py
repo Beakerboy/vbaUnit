@@ -9,6 +9,7 @@ T = Typevar('T', bound='Coveralls')
 class Coveralls(Coverage):
     def __init__(self: T, git: GitRepo) -> None:
         self.endpoint = "https://coveralls.io/api/v1/jobs"
+        self.git = git
 
     def coveralls_report() -> str:
     # with open(file_path, 'r') as f:
@@ -54,7 +55,7 @@ End Function
     report = {
         "repo_token": os.environ['COVERALLS_REPO_TOKEN'],
         "service_name": "manual",
-        "service_job_id": os.environ['GITHUB_RUN_ID'],
+        "service_job_id": self.git.job_id,
         "source_files": [
             {
                 "name": "src/Modules/Roots.bas",
@@ -64,22 +65,6 @@ End Function
                              None, None, 1, 1, 1],
             }
         ],
-        "git": {
-            "head": {
-                "id": commit_sha,
-                "author_name": details[0],
-                "author_email": details[1],
-                "committer_name": details[2],
-                "committer_email": details[3],
-                "message": details[4]
-            },
-            "branch": branch,
-            "remotes": [
-                {
-                    "name": "origin",
-                    "url": remote_url
-                }
-            ]
-        }
+        "git": self.git.repo()
     }
     print(report)
