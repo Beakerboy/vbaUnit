@@ -20,7 +20,7 @@ class VbaUnitVisitor(VbaVisitor):
         if isinstance(tree, ParserRuleContext):
             # Get the starting line number from the context
             # ANTLR line numbers are typically 1-indexed
-            tok = tree.start.line
+            tok = tree.start
             if tok is not None:
                 line_num = tok.line
                 self.visited_lines.add(line_num)
