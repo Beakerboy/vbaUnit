@@ -87,6 +87,8 @@ def run_tests(src: str, tests: str, project_name: str) -> None:
     # 5. Generate Report
     _generate_report(report)
 
+    coveralls_report()
+
 
 def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
     input_stream = FileStream(file_path, encoding="cp1252")
