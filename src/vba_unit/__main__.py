@@ -43,6 +43,13 @@ def main() -> None:
         default="VbaProject",
         help="The name of the project"
     )
+    parser.add_argument(
+        "--coverage",
+        default="no",
+        const="yes",
+        nargs="?",
+        help="Submit Code Coverage?"
+    )
 
     args = parser.parse_args()
     run_tests(args.src, args.tests, args.project)
@@ -52,22 +59,22 @@ def run_tests(src: str, tests: str, project_name: str) -> None:
     test_project_name = "vbatests"
     table = SymbolTable()
 
-    # 1. Parse source code
+    # Parse source code
     src_pattern = os.path.join(src, '*', '*.bas')
     src_files = glob.glob(src_pattern)
     for file_path in src_files:
         _parse_file(file_path, project_name, table)
 
-    # 2. Parse test code
+    # Parse test code
     test_pattern = os.path.join(tests, '*.bas')
     test_files = glob.glob(test_pattern)
     for file_path in test_files:
         _parse_file(file_path, test_project_name, table)
 
-    # 3. Setup Visitor
+    # Setup Visitor
     visitor = VbaUnitVisitor(table)
 
-    # 4. Find and Execute Tests
+    # Find and Execute Tests
     test_modules = table.definitions[test_project_name]["modules"]
 
     report = []
@@ -84,10 +91,12 @@ def run_tests(src: str, tests: str, project_name: str) -> None:
                         result.error = str(e)
                     report.append(result)
 
-    # 5. Generate Report
+    # Generate Report
     _generate_report(report)
 
-    coveralls_report()
+    # Submit Coverage
+    if args.coverage == "yes":
+        coveralls_report()
 
 
 def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
