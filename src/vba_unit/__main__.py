@@ -1,5 +1,6 @@
 import argparse
 import glob
+import hashlib
 import json
 import os
 import requests
@@ -155,6 +156,7 @@ End Function
         "source_files": [
             {
                 "name": "src/Modules/Roots.bas",
+                "source_digest": hashlib.md5(source_code.encode('utf-8')),
                 "source": source_code,
                 "coverage": [1, None, None, None, None, None, None, None, None,
                              None, None, 1, 1, 1],
