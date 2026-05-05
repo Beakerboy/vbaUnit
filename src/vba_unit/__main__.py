@@ -54,6 +54,9 @@ def main() -> None:
     args = parser.parse_args()
     run_tests(args.src, args.tests, args.project)
 
+    # Submit Coverage
+    if args.coverage == "yes":
+        coveralls_report()
 
 def run_tests(src: str, tests: str, project_name: str) -> None:
     test_project_name = "vbatests"
@@ -93,10 +96,6 @@ def run_tests(src: str, tests: str, project_name: str) -> None:
 
     # Generate Report
     _generate_report(report)
-
-    # Submit Coverage
-    if args.coverage == "yes":
-        coveralls_report()
 
 
 def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
