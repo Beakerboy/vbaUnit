@@ -4,7 +4,7 @@ from typing import TypeVar
 from vba_unit.test_fail_exception import TestFailException
 
 
-T = TypeVar('T', boond='VbaUnitVisitor')
+T = TypeVar('T', bound='VbaUnitVisitor')
 
 
 class VbaUnitVisitor(VbaVisitor):
