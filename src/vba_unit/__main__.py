@@ -56,7 +56,8 @@ def main() -> None:
 
     # Submit Coverage
     if args.coverage == "yes":
-        coveralls_report()
+        result = coveralls_report()
+        print(result)
 
 
 def run_tests(src: str, tests: str, project_name: str) -> None:
