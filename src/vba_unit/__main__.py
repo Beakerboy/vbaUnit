@@ -7,14 +7,11 @@ from antlr4_vba.vbaParser import vbaParser
 from pyvba_interpreter.symbol_table import SymbolTable
 from pyvba_interpreter.vba_listener import VbaListener
 from typing import TypeVar
+from vba_unit.test_fail_exception import TestFailException
 from vba_unit.vba_unit_visitor import VbaUnitVisitor
 
 
 T = TypeVar('T', bound='TestResult')
-
-
-class TestFailException(Exception):
-    pass
 
 
 class TestResult:
