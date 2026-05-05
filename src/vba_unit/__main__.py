@@ -133,8 +133,7 @@ def coveralls_report() -> str:
     #        coverage[i] = 1
     #    else:
     #        coverage[i] = 0
-    source_code = """
-Attribute VB_Name = "Roots"
+    source_code = """Attribute VB_Name = "Roots"
 ' Function: Discriminant
 ' A function to determine if the roots of a quadratic are real of complex
 '
