@@ -21,7 +21,7 @@ class VbaUnitVisitor(VbaVisitor):
             # ANTLR line numbers are typically 1-indexed
             line_num = tree.start.line
             self.visited_lines.add(line_num)
-        
+
         # Call the original visit to continue traversal
         return super().visit(tree)
 
