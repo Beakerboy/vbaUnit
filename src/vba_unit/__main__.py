@@ -110,7 +110,7 @@ def _generate_report(results: list) -> None:
     print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
 
 
-def coveralls_report(visited_lines):
+def coveralls_report() -> str:
     # with open(file_path, 'r') as f:
     #    line_count = sum(1 for line in f)
     # coverage = [None] * line_count
