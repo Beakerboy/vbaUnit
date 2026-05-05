@@ -137,9 +137,9 @@ Public Function Discriminant(a, b, c)
 End Function
 """
     report = {
-        "repo_token": "yeCb0Oq26tyTx0cvTJFp31CQXUTzUaCuD",
+        "repo_token": os.environ['COVERALLS_REPO_TOKEN'],
         "service_name": "manual",
-        "service_job_id": "123456",
+        "service_job_id": os.environ['GITHUB_RUN_ID'],
         "source_files": [
             {
                 "name": "src/Modules/Roots.bas",
@@ -147,8 +147,9 @@ End Function
                 "coverage": [1, None, None, None, None, None, None, None, None, None, None, 1, 1, 1],
             }
         ],
-        "git": "c3b85fff65ec7496983d013cdc1057ccb54a3b3f"
+        "git": os.environ['GITHUB_SHA']
     }
+    print(report)
     url = "https://coveralls.io/api/v1/jobs"
     response = requests.post(url, files={'json_file': json.dumps(report)})
     return response.json()
