@@ -123,7 +123,3 @@ def _generate_report(results: list) -> None:
         if r.passed:
             passed += 1
     print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
-
-
-if __name__ == "__main__":
-    main()
