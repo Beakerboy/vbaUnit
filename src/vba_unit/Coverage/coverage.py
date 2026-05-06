@@ -1,7 +1,7 @@
 import json
 import requests
 from typing import TypeVar
-from vba_unit.Coverage.coverage_table import CoverageTable
+from vba_unit.Interpreter.coverage_table import CoverageTable
 
 
 T = TypeVar('T', bound='Coverage')
