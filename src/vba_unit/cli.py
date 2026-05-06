@@ -1,5 +1,6 @@
 import argparse
 import glob
+import json
 import os
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
@@ -60,8 +61,15 @@ def main() -> None:
         coverage = CovFact.provider(args.coverage)
         coverage.git = GitFact.provider("github")
         coverage.table = table
+        print("Submitting coverage to coveralls.io...")
         result = coverage.submit_report()
-        print(result)
+        data = json.loads(results)
+        if "error" in data:
+            print("Error running coveralls:")
+        else:
+            print("Coverage submitted!")
+            print(f"Job #{data["message"]")
+            print(data["url"])
 
 
 def run_tests(src: str, tests: str,
