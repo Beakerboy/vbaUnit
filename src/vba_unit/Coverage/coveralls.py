@@ -3,6 +3,7 @@ import os
 from typing import TypeVar
 from vba_unit.Coverage.coverage import Coverage
 from vba_unit.Coverage.git_repo import GitRepo
+from vba_unit.Interpreter.coverage_table import VbaUnitModDef
 
 
 T = TypeVar('T', bound='Coveralls')
@@ -14,11 +15,12 @@ class Coveralls(Coverage):
         self.git: GitRepo
 
     def generate_report(self: T) -> str:
-        file_paths = ["src/Modules/Roots.bas"]
         source_files = []
-        for file in file_paths:
-            file_cov = self.file_coverage(file)
-            source_files.append([file_cov])
+        for lib in self.table.values():
+            for mod in lib["modules"].values():
+                file_cov = self.file_coverage(module)
+                source_files.append([file_cov])
+            
         commit_sha = os.environ.get('GITHUB_SHA')
         assert commit_sha is not None
 
@@ -31,23 +33,17 @@ class Coveralls(Coverage):
         }
         print(report)
 
-    def file_coverage(self: T, file_path: str) -> dict:
+    def file_coverage(self: T, module: VbaUnitModDef) -> dict:
+        file_path = module["path"]
         with open(file_path, 'r') as f:
             line_count = sum(1 for line in f)
 
-        coverage = [None] * line_count
-        for i in range(line_count):
-            line_num = i + 1
-            if line_num in visited_lines:
-                coverage[i] = 1
-            else:
-                coverage[i] = 0
+        
         with open(file_path, 'r') as f:
             source_code = f.read()
         digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
         return {
             "name": file_path,
             "source_digest": digest,
-            "coverage": [1, None, None, None, None, None, None, None,
-                         None, None, None, 1, 1, 1],
+            "coverage": module["coverage"],
         }
