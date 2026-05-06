@@ -1,3 +1,4 @@
+from antlr4_vba.vbaParser import vbaParser as Parser
 from pyvba_interpreter.vba_listener import VbaListener
 from typing import TypeVar
 
