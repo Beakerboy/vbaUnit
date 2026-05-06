@@ -15,8 +15,6 @@ class VbaUnitModDef(ModuleDefinition):
 
 
 class VbaUnitProjDef(ProjectDefinition):
-    name: str
-    type: FunctionType
     modules: dict[str, VbaUnitModDef]
 
 
