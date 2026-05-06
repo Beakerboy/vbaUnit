@@ -1,4 +1,4 @@
-from .github import GitHub
+from .github import Github
 from .git_repo import GitRepo
 
 
