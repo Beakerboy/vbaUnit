@@ -110,15 +110,15 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
     ts = CommonTokenStream(lexer)
     parser = vbaParser(ts)
     tree = parser.module()
-    listener = VbaUnitListener(project, table)
+    listener = VbaUnitListener(project.lower(), table)
     listener.parser = parser
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
     table.definitions[project.lower()]["modules"]["path"] = file_path
     if project == "vbatests":
-        table.definitions[project]["modules"]["cover"] = False
+        table.definitions[project.lower()]["modules"]["cover"] = False
     else:
-        table.definitions[project]["modules"]["cover"] = True
+        table.definitions[project.lower()]["modules"]["cover"] = True
 
 
 def _generate_report(results: list) -> None:
