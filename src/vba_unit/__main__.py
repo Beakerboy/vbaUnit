@@ -8,11 +8,12 @@ import subprocess
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
-from pyvba_interpreter.vba_listener import VbaListener
 from typing import TypeVar
 from vba_unit.Interpreter.coverage_table import CoverageTable
+from vba_unit.Interpreter.unit_listener import VbaUnitListener
+from vba_unit.Interpreter.vba_unit_visitor import VbaUnitVisitor
 from vba_unit.test_fail_exception import TestFailException
-from vba_unit.vba_unit_visitor import VbaUnitVisitor
+
 
 
 T = TypeVar('T', bound='TestResult')
@@ -108,7 +109,7 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
     ts = CommonTokenStream(lexer)
     parser = vbaParser(ts)
     tree = parser.module()
-    listener = VbaListener(project, table)
+    listener = VbaUnitListener(project, table)
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
 
