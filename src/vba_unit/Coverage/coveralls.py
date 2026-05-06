@@ -1,6 +1,5 @@
 import hashlib
 import os
-import subprocess
 from typing import TypeVar
 from vba_unit.Coverage.coverage import Coverage
 from vba_unit.Coverage.git_repo import GitRepo
@@ -22,7 +21,7 @@ class Coveralls(Coverage):
             source_file.append([file_cov])
         commit_sha = os.environ.get('GITHUB_SHA')
         assert commit_sha is not None
-        
+
         report = {
             "repo_token": os.environ['COVERALLS_REPO_TOKEN'],
             "service_name": "manual",
@@ -35,7 +34,7 @@ class Coveralls(Coverage):
     def file_coverage(self: T, file_path: str) -> dict:
         with open(file_path, 'r') as f:
             line_count = sum(1 for line in f)
-        
+
         coverage = [None] * line_count
         for i in range(line_count):
             line_num = i + 1
