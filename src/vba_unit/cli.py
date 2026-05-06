@@ -111,6 +111,7 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
     parser = vbaParser(ts)
     tree = parser.module()
     listener = VbaUnitListener(project, table)
+    listener.parser = parser
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
 
