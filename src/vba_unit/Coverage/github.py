@@ -19,7 +19,8 @@ class Github(GitRepo):
         (self.author_name,
          self.author_email,
          self.comitter_name,
-         self.comitter_email) = subprocess.check_output(
+         self.comitter_email,
+         self.message) = subprocess.check_output(
             ["git", "log", "-1", f"--pretty=format:{fmt}", self.commit_sha],
             text=True
         ).splitlines()
