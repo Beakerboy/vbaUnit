@@ -2,8 +2,8 @@ from vba_unit.Coverage.coveralls import Coveralls
 
 
 def test_constructor() -> None:
-      obj = Coveralls()
-      assert obj.endpoint == "https://coveralls.io/api/v1/jobs"
+    obj = Coveralls()
+    assert obj.endpoint == "https://coveralls.io/api/v1/jobs"
 
 
 report = {
