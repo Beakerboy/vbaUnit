@@ -15,7 +15,6 @@ from vba_unit.Interpreter.vba_unit_visitor import VbaUnitVisitor
 from vba_unit.test_fail_exception import TestFailException
 
 
-
 T = TypeVar('T', bound='TestResult')
 
 
