@@ -10,6 +10,7 @@ T = TypeVar('T', bound='Coverage')
 
 class Coverage():
     def __init__(self: T) -> None:
+        self.endpoint = ''
         self.table: CoverageTable
         self.git: GitRepo
 
