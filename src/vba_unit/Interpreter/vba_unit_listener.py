@@ -1,7 +1,6 @@
 from antlr4_vba.vbaParser import vbaParser as Parser
 from pyvba_interpreter.vba_listener import VbaListener
 from typing import TypeVar
-from .coverage_table import CoverageTable
 
 
 T = TypeVar('T', bound='VbaUnitListener')
