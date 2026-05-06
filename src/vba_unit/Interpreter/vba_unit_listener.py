@@ -45,7 +45,7 @@ class VbaUnitListener(VbaListener):
         # Check if the token starts at column 1 or if the token before this is
         # a wsc and it starts at column 1
         if (ctx.start.column == 0 or
-                self.parser.getInputStream().get(ctx.start.tokenIndex - 1):
+                self.parser.getInputStream().get(ctx.start.tokenIndex - 1)):
             ctx.start.column
         # Add Comment Line Number to Coverage array if this line is a comment
 
