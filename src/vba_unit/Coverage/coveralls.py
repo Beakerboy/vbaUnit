@@ -36,10 +36,6 @@ class Coveralls(Coverage):
     def file_coverage(self: T, module: VbaUnitModDef) -> dict:
         file_path = module["path"]
         with open(file_path, 'r') as f:
-            line_count = sum(1 for line in f)
-
-        
-        with open(file_path, 'r') as f:
             source_code = f.read()
         digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
         return {
