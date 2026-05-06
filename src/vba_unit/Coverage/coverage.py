@@ -10,9 +10,9 @@ T = TypeVar('T', bound='Coverage')
 
 class Coverage():
     """
-    Send a json string to a service provider. The implementing
-    class shall create the string from the data in CoverageTable
-    and the class implementing GitRepo.
+    Send a json string to a service provider. The implementing class shall
+    create the string from the data in CoverageTable and the class implementing
+    GitRepo.
     """
     def __init__(self: T) -> None:
         self.endpoint = ''
