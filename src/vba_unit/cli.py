@@ -9,6 +9,7 @@ from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
 from typing import TypeVar
+from vba_unit.Interpreter.coverage_factory import CovFact
 from vba_unit.Interpreter.coverage_table import CoverageTable
 from vba_unit.Interpreter.unit_listener import VbaUnitListener
 from vba_unit.Interpreter.vba_unit_visitor import VbaUnitVisitor
@@ -47,7 +48,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--coverage",
-        default="no",
+        default="coveralls",
         const="yes",
         nargs="?",
         help="Submit Code Coverage?"
@@ -58,8 +59,8 @@ def main() -> None:
     run_tests(args.src, args.tests, args.project)
 
     # Submit Coverage
-    if args.coverage == "yes":
-        coverage = Coveralls(table)
+    if args.coverage != "no":
+        coverage = CovFact(args.coverage)
         result = coverage.submit_report()
         print(result)
 
