@@ -1,5 +1,5 @@
 import pytest
-from vba_unit.Coverage.coverage import Caverage
+from vba_unit.Coverage.coverage import Coverage
 
 
 def test_constructor() -> None:
