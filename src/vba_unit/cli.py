@@ -64,7 +64,8 @@ def main() -> None:
         print(result)
 
 
-def run_tests(src: str, tests: str, project_name: str, table: CoverageTable) -> None:
+def run_tests(src: str, tests: str,
+              project_name: str, table: CoverageTable) -> None:
     test_project_name = "vbatests"
 
     # Parse source code
