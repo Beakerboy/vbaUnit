@@ -14,6 +14,9 @@ class Coverage():
         self.table: CoverageTable
         self.git: GitRepo
 
+    def generate_report() -> str:
+        raise Exception("Must be implemented by an extending class")
+
     def submit_report(self: T) -> str:
         report = self.generate_report()
         response = requests.post(
