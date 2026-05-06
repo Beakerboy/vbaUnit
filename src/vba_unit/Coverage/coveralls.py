@@ -30,7 +30,6 @@ class Coveralls(Coverage):
         digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
         commit_sha = os.environ.get('GITHUB_SHA')
         assert commit_sha is not None
-    
 
         # 3. Remote URL from git config
         remote_url = subprocess.check_output(
