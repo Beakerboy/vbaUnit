@@ -24,7 +24,7 @@ report = {
             'author_email': 'me@me.com',
             'committer_name': 'GitHub',
             'committer_email': 'noreply@github.com',
-            'message': 'Merge 44874a067b515009088d34a49bc1cb8fbb483556 into c3b85fff65ec7496983d013cdc1057ccb54a3b3f'
+            'message': 'commit message'
         },
         'branch': 'PR-6/merge',
         'remotes': [
