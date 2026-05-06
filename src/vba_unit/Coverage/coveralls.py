@@ -1,3 +1,4 @@
+import hashlib
 import os
 import subprocess
 from typing import TypeVar
