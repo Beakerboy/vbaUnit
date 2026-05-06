@@ -23,6 +23,6 @@ class Coverage():
             self.endpoint, files={'json_file': json.dumps(report)})
         return response.json()
         # should either use response.raise_for_status() to raise
-        # an exception if 5xx or 4xx errors
-        # or inspect response.status_code. Pass response instead
-        # of response.json?
+        # an exception if 5xx or 4xx errors or inspect
+        # response.status_code.
+        # Pass response instead of response.json?
