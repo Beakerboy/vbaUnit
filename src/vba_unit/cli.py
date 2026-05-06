@@ -68,7 +68,8 @@ def main() -> None:
             print("Error running coveralls:")
         else:
             print("Coverage submitted!")
-            print(f"Job #{data["message"]")
+            message = data["message"]
+            print(f"Job #{message}")
             print(data["url"])
 
 
