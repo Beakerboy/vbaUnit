@@ -114,6 +114,9 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
     listener.parser = parser
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
+    table.definitions[project]["modules"]["path"] = path
+    table.definitions[project]["modules"]["cover"] = True
+    
 
 
 def _generate_report(results: list) -> None:
