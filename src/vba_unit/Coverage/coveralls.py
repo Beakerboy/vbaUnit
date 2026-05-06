@@ -5,7 +5,7 @@ from vba_unit.Coverage.coverage import Coverage
 from vba_unit.Coverage.git_repo import GitRepo
 
 
-T = Typevar('T', bound='Coveralls')
+T = TypeVar('T', bound='Coveralls')
 
 
 class Coveralls(Coverage):
