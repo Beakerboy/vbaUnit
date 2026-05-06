@@ -16,7 +16,7 @@ class Coveralls(Coverage):
 
     def generate_report(self: T) -> dict:
         source_files = []
-        for lib in self.table.values():
+        for lib in self.table.definitions.values():
             for module in lib["modules"].values():
                 if module["cover"]:
                     file_cov = self.file_coverage(module)
