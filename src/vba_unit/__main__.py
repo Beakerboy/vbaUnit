@@ -8,9 +8,9 @@ import subprocess
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
-from pyvba_interpreter.symbol_table import SymbolTable
 from pyvba_interpreter.vba_listener import VbaListener
 from typing import TypeVar
+from vba_unit.Interpreter.coverage_table import CoverageTable
 from vba_unit.test_fail_exception import TestFailException
 from vba_unit.vba_unit_visitor import VbaUnitVisitor
 
@@ -64,7 +64,7 @@ def main() -> None:
 
 def run_tests(src: str, tests: str, project_name: str) -> None:
     test_project_name = "vbatests"
-    table = SymbolTable()
+    table = CoverageTable()
 
     # Parse source code
     src_pattern = os.path.join(src, '*', '*.bas')
