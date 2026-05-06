@@ -11,7 +11,7 @@ class Coveralls(Coverage):
         self.endpoint = "https://coveralls.io/api/v1/jobs"
         self.git = git
 
-    def coveralls_report() -> str:
+    def coveralls_report(self: T) -> str:
         file_path = "src/Modules/Roots.bas"
         with open(file_path, 'r') as f:
             line_count = sum(1 for line in f)
