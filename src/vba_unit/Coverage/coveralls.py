@@ -17,9 +17,10 @@ class Coveralls(Coverage):
     def generate_report(self: T) -> str:
         source_files = []
         for lib in self.table.values():
-            for mod in lib["modules"].values():
-                file_cov = self.file_coverage(module)
-                source_files.append([file_cov])
+            for module in lib["modules"].values():
+                if module["cover"]:
+                    file_cov = self.file_coverage(module)
+                    source_files.append([file_cov])
             
         commit_sha = os.environ.get('GITHUB_SHA')
         assert commit_sha is not None
