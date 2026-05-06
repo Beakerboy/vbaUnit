@@ -28,8 +28,9 @@ report = {
         },
         'branch': 'PR-6/merge',
         'remotes': [
-            {'name': 'origin',
-             'url': 'https://github.com/Beakerboy/VBA-Projects'
+            {
+                'name': 'origin',
+                'url': 'https://github.com/Beakerboy/VBA-Projects'
             }
         ]
     }
