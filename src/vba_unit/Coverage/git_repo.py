@@ -7,6 +7,15 @@ T = TypeVar('T', bound='GitRepo')
 class GitRepo():
     def __init__(self: T) -> None:
         self.job_id = ''
+        self.git_repo = ''
+        self.author_name = ''
+        self.author_email = ''
+        self.comitter_name = ''
+        self.comitter_email = ''
+        self.message = ''
+        self.branch = ''
+        self.remote_url = ''
+        self.commit_sha = ''
 
     def repo(self: T) -> dict:
         return {
