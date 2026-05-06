@@ -7,7 +7,7 @@ from vba_unit.Coverage.git_repo import GitRepo
 T = TypeVar('T', bound='GitRepo')
 
 
-class Coveralls(GitRepo):
+class Github(GitRepo):
     def __init__(self: T) -> None:
         self.job_id = os.environ['GITHUB_RUN_ID']
         self.commit_sha = os.environ.get('GITHUB_SHA')
