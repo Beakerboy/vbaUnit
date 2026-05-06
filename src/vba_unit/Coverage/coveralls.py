@@ -14,7 +14,7 @@ class Coveralls(Coverage):
         self.endpoint = "https://coveralls.io/api/v1/jobs"
         self.git: GitRepo
 
-    def generate_report(self: T) -> str:
+    def generate_report(self: T) -> dict:
         source_files = []
         for lib in self.table.values():
             for module in lib["modules"].values():
@@ -32,7 +32,7 @@ class Coveralls(Coverage):
             "source_files": source_files,
             "git": self.git.repo()
         }
-        print(report)
+        return report
 
     def file_coverage(self: T, module: VbaUnitModDef) -> dict:
         file_path = module["path"]
