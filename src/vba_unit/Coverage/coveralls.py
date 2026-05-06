@@ -1,3 +1,5 @@
+import os
+import subprocess
 from typing import TypeVar
 from vba_unit.Coverage.coverage import Coverage
 from vba_unit.Coverage.git_repo import GitRepo
@@ -44,8 +46,8 @@ class Coveralls(Coverage):
                     "name": file_path,
                     "source_digest": digest,
                     "source": source_code,
-                    "coverage": [1, None, None, None, None, None, None, None, None,
-                                 None, None, 1, 1, 1],
+                    "coverage": [1, None, None, None, None, None, None, None,
+                                 None, None, None, 1, 1, 1],
                 }
             ],
             "git": self.git.repo()
