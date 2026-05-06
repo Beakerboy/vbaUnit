@@ -1,5 +1,6 @@
 from .coverage import Coverage
 
+
 class CovFact():
     @staticmethod
     def provider(name: str) -> Coverage:
