@@ -8,13 +8,16 @@ T = TypeVar('T', bound='VbaUnitListener')
 
 
 class VbaUnitListener(VbaListener):
-    def __init__(self: T, project: str, table: CoverageTable) -> None:
-        super().__init__(project, table)
+
+    def enterProceduralModuleHeader(                               # noqa: N802
+            self: T,
+            ctx: Parser.ProceduralModuleHeaderContext) -> None:
+        super().enterProceduralModuleHeader(ctx)
         token_stream = self.parser.getInputStream()
         eof_token = token_stream.get(token_stream.size - 1)
         total_lines = eof_token.line
-        coverage = [0] * total_lines
-        # Assign the coverage array to the VbaModDef entry
+        mod = self.table[project]["modules"][self.module_name.lower()]
+        mod["coverage"] = [0] * total_lines
 
     def enterFunctionDeclaration(                                  # noqa: N802
             self: T,
