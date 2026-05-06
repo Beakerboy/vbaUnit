@@ -12,53 +12,42 @@ class Coveralls(Coverage):
         self.git = git
 
     def coveralls_report() -> str:
-    # with open(file_path, 'r') as f:
-    #    line_count = sum(1 for line in f)
-    # coverage = [None] * line_count
-    # for i in range(line_count):
-    #    line_num = i + 1
-    #    if line_num in visited_lines:
-    #        coverage[i] = 1
-    #    else:
-    #        coverage[i] = 0
-    source_code = """Attribute VB_Name = "Roots"
-' Function: Discriminant
-' A function to determine if the roots of a quadratic are real of complex
-'
-' Parameters:
-'    a - x² coefficiant
-'    b - x  coefficient
-'    c - constant term
-'
-' Returns:
-' a real number
-Public Function Discriminant(a, b, c)
-    Discriminant = b ^ 2 - (4 * a * c)
-End Function
-"""
-    digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
-    commit_sha = os.environ.get('GITHUB_SHA')
-    assert commit_sha is not None
+        file_path = "src/Modules/Roots.bas"
+        with open(file_path, 'r') as f:
+            line_count = sum(1 for line in f)
+        with open(file_path, 'r') as f:
+            source_code = f.read()
+        coverage = [None] * line_count
+        for i in range(line_count):
+            line_num = i + 1
+            if line_num in visited_lines:
+                coverage[i] = 1
+            else:
+                coverage[i] = 0
+    
+        digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
+        commit_sha = os.environ.get('GITHUB_SHA')
+        assert commit_sha is not None
     
 
-    # 3. Remote URL from git config
-    remote_url = subprocess.check_output(
-        ["git", "config", "--get", "remote.origin.url"],
-        text=True
-    ).strip()
-    report = {
-        "repo_token": os.environ['COVERALLS_REPO_TOKEN'],
-        "service_name": "manual",
-        "service_job_id": self.git.job_id,
-        "source_files": [
-            {
-                "name": "src/Modules/Roots.bas",
-                "source_digest": digest,
-                "source": source_code,
-                "coverage": [1, None, None, None, None, None, None, None, None,
-                             None, None, 1, 1, 1],
-            }
-        ],
-        "git": self.git.repo()
-    }
-    print(report)
+        # 3. Remote URL from git config
+        remote_url = subprocess.check_output(
+            ["git", "config", "--get", "remote.origin.url"],
+            text=True
+        ).strip()
+        report = {
+            "repo_token": os.environ['COVERALLS_REPO_TOKEN'],
+            "service_name": "manual",
+            "service_job_id": self.git.job_id,
+            "source_files": [
+                {
+                    "name": file_path,
+                    "source_digest": digest,
+                    "source": source_code,
+                    "coverage": [1, None, None, None, None, None, None, None, None,
+                                 None, None, 1, 1, 1],
+                }
+            ],
+            "git": self.git.repo()
+        }
+        print(report)
