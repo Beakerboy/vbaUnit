@@ -1,13 +1,13 @@
 from typing import TypeVar
 
 
-T = TypeVar('T', bound='GitRep')
+T = TypeVar('T', bound='GitRepo')
 
 
 class GitRepo():
     def __init__(self: T) -> None:
         self.job_id = ''
-    
+
     def repo(self: T) -> dict:
         return {
             "head": {
