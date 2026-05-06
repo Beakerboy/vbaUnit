@@ -102,7 +102,7 @@ def run_tests(src: str, tests: str, project_name: str) -> None:
     _generate_report(report)
 
 
-def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
+def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
     input_stream = FileStream(file_path, encoding="cp1252")
     lexer = vbaLexer(input_stream)
     ts = CommonTokenStream(lexer)
