@@ -13,7 +13,7 @@ class Coveralls(Coverage):
         self.endpoint = "https://coveralls.io/api/v1/jobs"
         self.git = git
 
-    def coveralls_report(self: T) -> str:
+    def generate_report(self: T) -> str:
         file_paths = ["src/Modules/Roots.bas"]
         source_files = []
         for file in file_paths:
