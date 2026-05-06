@@ -2,11 +2,11 @@ from typing import TypeVar
 from vba_unit.Coverage.coverage import Coverage
 
 
-T = TypeVar('T', bound='TextReport')
+T = TypeVar('T', bound='HtmlReport')
 
 
-class TextReport(Coverage):
+class HtmlReport(Coverage):
     """
-    Coverage metrics for text output
+    Static webpages of code coverage
     """
     pass
