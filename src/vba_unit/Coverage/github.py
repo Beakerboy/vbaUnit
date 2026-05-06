@@ -4,13 +4,13 @@ from typing import TypeVar
 from vba_unit.Coverage.git_repo import GitRepo
 
 
-T = TypeVar('T', bound='Github')
+T = TypeVar('T', bound='GitRepo')
 
 
 class Coveralls(GitRepo):
     def __init__(self: T) -> None:
         self.job_id = os.environ['GITHUB_RUN_ID']
-        self.commit_sha = commit_sha = os.environ.get('GITHUB_SHA')
+        self.commit_sha = os.environ.get('GITHUB_SHA')
         full_ref = os.environ.get('GITHUB_REF', 'master')
         self.branch = full_ref.replace(
             'refs/heads/', ''
