@@ -26,7 +26,7 @@ class VbaUnitListener(VbaListener):
         super().exitFunctionDeclaration(ctx)
         # Add the end line number to the function definition
 
-     def enterSubroutineDeclaration(                               # noqa: N802
+    def enterSubroutineDeclaration(                                # noqa: N802
             self: T,
             ctx: Parser.SubroutineDeclarationContext) -> None:
         super().enterSubroutineDeclaration(ctx)
