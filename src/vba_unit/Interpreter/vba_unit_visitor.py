@@ -1,10 +1,10 @@
 from antlr4.tree.Tree import Tree
 from antlr4 import ParserRuleContext
 from antlr4_vba.vbaParser import vbaParser as Parser
-from pyvba_interpreter.symbol_table import SymbolTable
 from pyvba_interpreter.vba_visitor import VbaVisitor
 from typing import Any, TypeVar
 from vba_unit.test_fail_exception import TestFailException
+from .coverage_table import CoverageTable
 
 
 T = TypeVar('T', bound='VbaUnitVisitor')
@@ -12,7 +12,7 @@ T = TypeVar('T', bound='VbaUnitVisitor')
 
 class VbaUnitVisitor(VbaVisitor):
 
-    def __init__(self: T, table: SymbolTable) -> None:
+    def __init__(self: T, table: CoverageTable) -> None:
         self.visited_lines: set[int] = set()
         super().__init__(table)
 
