@@ -7,3 +7,5 @@ class GitFact():
     def provider(name: str) -> GitRepo:
         if name == "github":
             return Github()
+        else:
+            raise Exception("Unknown git provider.")
