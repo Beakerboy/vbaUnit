@@ -23,3 +23,7 @@ class Coveralls(GitRepo):
             ["git", "log", "-1", f"--pretty=format:{fmt}", self.commit_sha],
             text=True
         ).splitlines()
+        self.remote_url = subprocess.check_output(
+            ["git", "config", "--get", "remote.origin.url"],
+            text=True
+        ).strip()
