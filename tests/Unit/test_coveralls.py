@@ -14,7 +14,8 @@ report = {
         {
             'name': 'src/Modules/Roots.bas',
             'source_digest': '72a03368f06a7905c304c52068d77755',
-            'coverage': [1, None, None, None, None, None, None, None, None, None, None, 1, 1, 1]
+            'coverage': [1, None, None, None, None, None, None,
+                         None, None, None, None, 1, 1, 1]
         }
     ],
     'git': {
