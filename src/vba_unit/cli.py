@@ -114,7 +114,7 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
     listener.parser = parser
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
-    table.definitions[project]["modules"]["path"] = file_path
+    table.definitions[project.lower()]["modules"]["path"] = file_path
     if project == "vbatests":
         table.definitions[project]["modules"]["cover"] = False
     else:
