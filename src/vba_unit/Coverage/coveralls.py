@@ -26,7 +26,6 @@ class Coveralls(Coverage):
                 coverage[i] = 1
             else:
                 coverage[i] = 0
-    
         digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
         commit_sha = os.environ.get('GITHUB_SHA')
         assert commit_sha is not None
