@@ -9,9 +9,10 @@ class VbaUnitFuncDef(FunctionDefinition):
 
 
 class VbaUnitModDef(ModuleDefinition):
-    path: str
-    coverage: list[None | int]
-    functions: dict[str, VbaUnitFuncDef]
+    path: str                              # The file path
+    cover: bool                            # Track coverage on this file?
+    coverage: list[None | int]             # lines covered
+    functions: dict[str, VbaUnitFuncDef]   # {@inheritDoc}
 
 
 class VbaUnitProjDef(ProjectDefinition):
