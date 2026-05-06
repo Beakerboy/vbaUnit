@@ -18,7 +18,7 @@ class Coveralls(Coverage):
         source_files = []
         for file in file_paths:
             file_cov = self.file_coverage(file)
-            source_file.append([file_cov])
+            source_files.append([file_cov])
         commit_sha = os.environ.get('GITHUB_SHA')
         assert commit_sha is not None
 
@@ -49,5 +49,5 @@ class Coveralls(Coverage):
             "name": file_path,
             "source_digest": digest,
             "coverage": [1, None, None, None, None, None, None, None,
-                                 None, None, None, 1, 1, 1],
+                         None, None, None, 1, 1, 1],
         }
