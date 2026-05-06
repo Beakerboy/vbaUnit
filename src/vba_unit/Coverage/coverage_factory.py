@@ -1,4 +1,5 @@
 from .coverage import Coverage
+from .coveralls import Coveralls
 
 
 class CovFact():
