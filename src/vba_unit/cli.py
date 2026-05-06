@@ -114,11 +114,12 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
     listener.parser = parser
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
-    table.definitions[project.lower()]["modules"]["path"] = file_path
+    mod_name = listener.module_name.lower()
+    table.definitions[project.lower()]["modules"][mod_name]["path"] = file_path
     if project == "vbatests":
-        table.definitions[project.lower()]["modules"]["cover"] = False
+        table.definitions[project.lower()]["modules"][mod_name]["cover"] = False
     else:
-        table.definitions[project.lower()]["modules"]["cover"] = True
+        table.definitions[project.lower()]["modules"][mod_name]["cover"] = True
 
 
 def _generate_report(results: list) -> None:
