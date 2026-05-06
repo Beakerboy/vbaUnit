@@ -45,8 +45,8 @@ def main() -> None:
     )
     parser.add_argument(
         "--coverage",
-        default="coveralls",
-        const="yes",
+        default="no",
+        const="coveralls",
         nargs="?",
         help="Submit Code Coverage?"
     )
