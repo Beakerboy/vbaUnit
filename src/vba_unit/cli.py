@@ -57,12 +57,13 @@ def main() -> None:
 
     args = parser.parse_args()
     table = CoverageTable()
-    run_tests(args.src, args.tests, args.project)
+    run_tests(args.src, args.tests, args.project, table)
 
     # Submit Coverage
     if args.coverage != "no":
         coverage = CovFact.provider(args.coverage)
         coverage.git = GitFact.provider("github")
+        coverage.table = table
         result = coverage.submit_report()
         print(result)
 
