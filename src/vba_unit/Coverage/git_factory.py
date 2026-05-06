@@ -1,7 +1,9 @@
 from .github import GitHub
+from .git_repo import GitRepo
+
 
 class GitFact():
     @staticmethod
-    def provider(name: str) -> Coverage:
+    def provider(name: str) -> GitRepo:
         if name == "github":
             return Github()
