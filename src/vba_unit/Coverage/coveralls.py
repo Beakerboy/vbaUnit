@@ -9,9 +9,9 @@ T = TypeVar('T', bound='Coveralls')
 
 
 class Coveralls(Coverage):
-    def __init__(self: T, git: GitRepo) -> None:
+    def __init__(self: T) -> None:
         self.endpoint = "https://coveralls.io/api/v1/jobs"
-        self.git = git
+        self.git: GitRepo
 
     def generate_report(self: T) -> str:
         file_paths = ["src/Modules/Roots.bas"]
