@@ -20,6 +20,7 @@ class VbaUnitListener(VbaListener):
         mods = self.table.definitions[self.project_name]["modules"]
         mods[self.module_name.lower()]["coverage"] = [0] * total_lines
         mods[self.module_name.lower()]["cover"] = True
+        mods[self.module_name.lower()]["coverage"][total_lines - 1] = None
 
     def enterFunctionDeclaration(                                  # noqa: N802
             self: T,
