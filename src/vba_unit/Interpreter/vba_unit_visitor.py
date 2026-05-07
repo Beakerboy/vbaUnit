@@ -14,6 +14,7 @@ class VbaUnitVisitor(VbaVisitor):
 
     def __init__(self: T, table: CoverageTable) -> None:
         self.current_line = 0
+        self.context_changed = False
         super().__init__(table)
 
     def visit(self: T, tree: Tree) -> Any: 
@@ -26,7 +27,7 @@ class VbaUnitVisitor(VbaVisitor):
                 mods = self.table.definitions[self.context[0]]["modules"]
                 if mods[self.context[1]]["cover"]:
                     line_num = tok.line
-                    if line_num != self.current_line:
+                    if line_num != self.current_line or self.context_changed:
                         mods = self.table.definitions[self.context[0]]["modules"]
                         coverage = mods[self.context[1]]["coverage"]
                         try:
