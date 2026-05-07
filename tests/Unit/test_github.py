@@ -1,4 +1,5 @@
 import os
+from pytest_mock import MockerFixture
 from unittest import mock
 from vba_unit.Coverage.github import Github
 
