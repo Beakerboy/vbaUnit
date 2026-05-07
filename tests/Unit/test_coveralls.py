@@ -28,7 +28,7 @@ mock_github.repo.return_value = (
         ]
     }
 )
-mock_github.job_id.return_value = '25396149145'
+mock_github.job_id.return_value = ('25396149145')
 
 
 class MockTable():
