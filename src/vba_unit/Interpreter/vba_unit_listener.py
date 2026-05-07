@@ -17,7 +17,7 @@ class VbaUnitListener(VbaListener):
         eof_token = token_stream.get(len(token_stream.tokens) - 1)
         total_lines = eof_token.line
         mods = self.table.definitions[self.project_name]["modules"]
-        mods[self.module_name.lower()]["coverage"] = [0] * (total_lines - 1)
+        mods[self.module_name.lower()]["coverage"] = [0] * total_lines
         mods[self.module_name.lower()]["cover"] = True
 
     def enterFunctionDeclaration(                                  # noqa: N802
