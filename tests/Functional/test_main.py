@@ -12,7 +12,7 @@ def change_dir():
     os.chdir(original_dir)  # Teardown: happens after test ends
 
 
-def test_main(change_dir, mocker: MockerFixture) -> None:
+def test_main(change_dir: str, mocker: MockerFixture) -> None:
     mock_print = mocker.patch("builtins.print")
     mocker.patch(
         "sys.argv",
