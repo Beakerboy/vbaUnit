@@ -4,7 +4,9 @@ from vba_unit.Coverage.github import Github
 
 
 @mock.patch.dict(os.environ, {
-    "GITHUB_RUN_ID": "25396149145"
+    "GITHUB_RUN_ID": "25396149145",
+    "GITHUB_SHA": "123",
+    "GITHUB_REF": "master"
 })
 def test_construct() -> None:
     github = Github()
