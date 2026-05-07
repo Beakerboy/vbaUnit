@@ -3,7 +3,15 @@ from vba_unit.cli import main
 from pytest_mock import MockerFixture
 
 
-def test_main(mocker: MockerFixture) -> None:
+@pytest.fixture
+def change_dir():
+    original_dir = os.getcwd()
+    os.chdir("./tests")
+    yield  # The test runs here
+    os.chdir(original_dir)  # Teardown: happens after test ends
+
+
+def test_main(mocker: MockerFixture, change_dir: str) -> None:
     mock_print = mocker.patch("builtins.print")
     mocker.patch(
         "sys.argv",
