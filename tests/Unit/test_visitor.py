@@ -4,4 +4,19 @@ from vba_unit.Interpreter.vba_unit_listener import VbaUnitVisitor
 
 def test_listener() -> None:
     table = CoverageTable()
+    input_stream = FileStream(
+        "tests/src/VbaProject/Module1.bas",
+        encoding="cp1252"
+    )
+    lexer = vbaLexer(input_stream)
+    ts = CommonTokenStream(lexer)
+    parser = vbaParser(ts)
+    tree = parser.module()
+    listener = VbaUnitListener("vbaproject", table)
+    listener.parser = parser
+    walker = ParseTreeWalker()
+    walker.walk(listener, tree)
     visitor = VbaUnitVisitor(table)
+    ctx = table.definitions["vbaproject"]["modules"]["module1"]["functions"]["foo"]["handle"]
+    visitor.run_function(ctx, [])
+    assert 4 in visitor.visited_lines
