@@ -19,7 +19,7 @@ def test_construct(mock_check_output: str) -> None:
     assert github.job_id == "25396149145"
     assert github.author_name == "John Doe"
     assert github.author_email == "me@me.com"
-    assert github.committer_name == "Github"
+    assert github.committer_name == "GitHub"
     assert github.committer_email == "noreply@github.com"
     assert github.message == "commit message"
     assert github.remote_url == 'https://github.com/Beakerboy/vbaUnit'
