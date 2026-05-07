@@ -14,10 +14,10 @@ def test_construct(mock_check_output: str) -> None:
     mock_check_output.side_effect = ["John Doe\nme@me.com\nGitHub\nnoreply@github.com\ncommit message", 'https://github.com/Beakerboy/FooProject']
     github = Github()
     assert github.job_id == "25396149145"
-    assert github.author_name == John Doe
-    assert github.author_email == me@me.com
-    assert github.committer_name == Github
-    assert github.committer_email == noreply@github.com
+    assert github.author_name == "John Doe"
+    assert github.author_email == "me@me.com"
+    assert github.committer_name == "Github"
+    assert github.committer_email == "noreply@github.com"
     assert github.message == "commit message"
     assert self.remote_url == 'https://github.com/Beakerboy/vbaUnit'
     assert github.branch == "PR-6/merge"
