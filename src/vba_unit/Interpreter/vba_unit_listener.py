@@ -50,7 +50,7 @@ class VbaUnitListener(VbaListener):
         super().enterCommentBody(ctx)
         # Check if the token starts at column 1 or if the token before this is
         # a wsc and it starts at column 1
-        in_str = self.parser.getInputStream() 
+        in_str = self.parser.getInputStream()
         if (ctx.start.column == 0 or
                 in_str.get(ctx.start.tokenIndex - 1).start.column == 0):
             line_num = ctx.start.column
