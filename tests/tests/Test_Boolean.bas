@@ -9,6 +9,6 @@ Sub Test_And()
     TestValue = True And True
     Debug.Assert TestValue
 End Sub
-Sub Test_eval()
+Sub Test_Eval()
     Debug.Assert Foo() = 1
 End Sub
