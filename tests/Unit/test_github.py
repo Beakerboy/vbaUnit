@@ -35,3 +35,21 @@ def test_construct(mock_check_output: str) -> None:
             ]
         ]
     mock_check_output.assert_has_calls(expected_calls)
+    expected = {
+        'head': {
+            'id': '036c36dfac1d00cb37b6510fc423641cda7b1f08',
+            'author_name': 'John Doe',
+            'author_email': 'me@me.com',
+            'committer_name': 'GitHub',
+            'committer_email': 'noreply@github.com',
+            'message': 'commit message'
+        },
+        'branch': 'PR-6/merge',
+        'remotes': [
+            {
+                'name': 'origin',
+                'url': 'https://github.com/Beakerboy/VBA-Projects'
+            }
+        ]
+    }
+    assert github.git() == expected
