@@ -100,7 +100,7 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
     lexer = vbaLexer(input_stream)
     ts = CommonTokenStream(lexer)
     parser = vbaParser(ts)
-    tree = parser.module()
+    tree = parser.startRule()
     listener = VbaUnitListener(project.lower(), table)
     listener.parser = parser
     walker = ParseTreeWalker()
