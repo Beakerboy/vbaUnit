@@ -7,7 +7,7 @@ from vba_unit.Interpreter.vba_unit_listener import VbaUnitListener
 
 def test_listener() -> None:
     table = CoverageTable()
-    input_stream = FileStream("src/VbaProject/Module1.bas", encoding="cp1252")
+    input_stream = FileStream("tests/src/VbaProject/Module1.bas", encoding="cp1252")
     lexer = vbaLexer(input_stream)
     ts = CommonTokenStream(lexer)
     parser = vbaParser(ts)
