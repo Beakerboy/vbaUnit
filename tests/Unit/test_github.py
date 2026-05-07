@@ -52,4 +52,4 @@ def test_construct(mock_check_output: str) -> None:
             }
         ]
     }
-    assert github.git() == expected
+    assert github.repo() == expected
