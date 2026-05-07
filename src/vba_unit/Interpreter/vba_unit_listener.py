@@ -1,4 +1,5 @@
 from antlr4_vba.vbaParser import vbaParser as Parser
+from antlr4_vba.vbaLexer import vbaLexer as Lexer
 from pyvba_interpreter.vba_listener import VbaListener
 from typing import TypeVar
 
@@ -64,6 +65,11 @@ class VbaUnitListener(VbaListener):
             self: T,
             ctx: Parser.EndOfLineContext) -> None:
         super().enterEndOfLine(ctx)
+        in_str = self.parser.getInputStream()
+        if ctx.start is not None:
+            if (ctx.start.column == 0 or (
+                isinstance(in_str.get(ctx.start.tokenIndex - 1), Lexer.WSC) and
+                in_str.get(ctx.start.tokenIndex - 1).column == 0)):
         # Check if this token starts at column 1, or if the preceeding token
         # is a WSC and it starts at column 1.
         # Add WS Line Number to Coverage array if this line is whitespace
