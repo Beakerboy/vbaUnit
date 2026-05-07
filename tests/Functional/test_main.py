@@ -64,7 +64,7 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
         "json_file": (
             '{"repo_token": "secretsecretsecret", '
             '"service_name": "manual", '
-            '"service_job_id": "25396149145"
+            '"service_job_id": "25396149145"'
             '"source_files": ['
             '{"name": "./src/VbaProject/Module1.bas", '
             '"source_digest": "7b6081d51c6c30a67909461eb2215f69", '
