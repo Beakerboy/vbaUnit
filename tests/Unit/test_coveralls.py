@@ -57,6 +57,23 @@ def test_constructor() -> None:
     "COVERALLS_REPO_TOKEN": "secretsecretsecret",
 })
 def test_report() -> None:
+    fake_content = (
+        'Attribute VB_Name = "Roots"\r\n'
+        "'Comment\r\n"
+        "'Comment\r\n"
+        "'Comment\r\n"
+        "'Comment\r\n"
+        "'Comment\r\n"
+        "'Comment\r\n"
+        "'Comment\r\n"
+        "'Comment\r\n"
+        "'Comment\r\n"
+        "'Comment\r\n"
+        'Function Determinant(a, b, c)\r\n'
+        '    Determinant = b ^ 2 - 4 * a * c'
+        'End Function\r\n'
+    )
+    m = mock_open(read_data=fake_content)
     obj = Coveralls()
     obj.git = mock_github
     obj.table = MockTable()
