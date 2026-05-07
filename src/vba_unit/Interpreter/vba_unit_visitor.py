@@ -59,3 +59,4 @@ class VbaUnitVisitor(VbaVisitor):
                 self.context[1] != defn["module"] or
                 self.context[2] != defn["name"]):
             self.context_changed = True
+        return super().run_function(defn, args)
