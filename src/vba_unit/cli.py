@@ -63,14 +63,13 @@ def main() -> None:
         coverage.table = table
         print("Submitting coverage to coveralls.io...")
         result = coverage.submit_report()
-        data = json.loads(result)
-        if "error" in data:
+        if "error" in result:
             print("Error running coveralls:")
         else:
             print("Coverage submitted!")
-            message = data["message"]
+            message = result["message"]
             print(f"Job #{message}")
-            print(data["url"])
+            print(result["url"])
 
 
 def run_tests(src: str, tests: str,
