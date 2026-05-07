@@ -27,13 +27,13 @@ def test_construct(mock_check_output: str) -> None:
     expected_calls = [
             [
                 ["git", "log", "-1", "--pretty=format:%an%n%ae%n%cn%n%ce%n%s", "036c36dfac1d00cb37b6510fc423641cda7b1f08"],
-                "text=True"
+                "text=True",
+                ""
             ],
             [
                 ["git", "config", "--get", "remote.origin.url"],
                 "text=True"
             ],
-            []
         ]
     mock_check_output.assert_has_calls(expected_calls)
     expected = {
