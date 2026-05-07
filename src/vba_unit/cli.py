@@ -1,6 +1,5 @@
 import argparse
 import glob
-import json
 import os
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
