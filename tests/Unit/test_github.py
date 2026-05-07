@@ -18,4 +18,4 @@ def test_subprocess() -> None:
     message = subprocess.check_output(
             ["git", "log", "-1", f"--pretty=format:{fmt}", commit_sha],
             text=True)
-    assert message = ""
+    assert message == ""
