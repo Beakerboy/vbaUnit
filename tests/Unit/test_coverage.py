@@ -28,7 +28,7 @@ def test_submit(mock_post) -> None:
     mock_response = mock.MagicMock()
     mock_response.status_code = 201
     mock_response.json.return_value = {
-        "message": "25504858355.1,
+        "message": "25504858355.1",
         "url": "https://coveralls.io/builds/79326270"
     }
     mock_post.return_value = mock_response
