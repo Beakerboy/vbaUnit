@@ -34,11 +34,8 @@ def test_submit(mock_post) -> None:
     mock_post.return_value = mock_response
 
     expected_report = {
-        "json_file": {
-            'repo_token': 'secretsecretsecret',
-            'service_name': 'manual',
-            'service_job_id': '25396149145'
-        }
+        "json_file": ('{"repo_token": "secretsecretsecret", '
+                      '"service_name": "manual", "service_job_id": "25396149145"}'
     }
     url = "https://www.example.com/api/v1"
     cov = MockCoverage()
