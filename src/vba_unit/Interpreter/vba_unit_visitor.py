@@ -52,7 +52,7 @@ class VbaUnitVisitor(VbaVisitor):
         if not expr:
             raise TestFailException()
 
-    deg run_function(self: T,
+    def run_function(self: T,
                      defn: FunctionDefinition | LibraryDefinition,
                      args: list[Any]) -> Any:
         if (self.context[0] != defn["project"] or
