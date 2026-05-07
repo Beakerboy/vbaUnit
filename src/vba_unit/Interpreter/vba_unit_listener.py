@@ -27,13 +27,18 @@ class VbaUnitListener(VbaListener):
             self: T,
             ctx: Parser.FunctionDeclarationContext) -> None:
         super().enterFunctionDeclaration(ctx)
-        # Add the start line number to the function definition
+        mods = self.table.definitions[self.project_name]["modules"]
+        # func = mods[self.module_name.lower()]["functions"][name]
+        # func["start_stop"][0] = ctx.start.line
+
 
     def exitFunctionDeclaration(                                   # noqa: N802
             self: T,
             ctx: Parser.FunctionDeclarationContext) -> None:
         super().exitFunctionDeclaration(ctx)
-        # Add the end line number to the function definition
+        mods = self.table.definitions[self.project_name]["modules"]
+        # func = mods[self.module_name.lower()]["functions"][name]
+        # func["start_stop"][1] = ctx.start.line
 
     def enterSubroutineDeclaration(                                # noqa: N802
             self: T,
