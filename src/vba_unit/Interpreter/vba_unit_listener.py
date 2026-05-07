@@ -52,7 +52,7 @@ class VbaUnitListener(VbaListener):
         # a wsc and it starts at column 1
         in_str = self.parser.getInputStream() 
         if (ctx.start.column == 0 or
-                in_sr.get(ctx.start.tokenIndex - 1).start.column == 0):
+                in_str.get(ctx.start.tokenIndex - 1).start.column == 0):
             line_num = ctx.start.column
             mods[self.module_name.lower()]["coverage"][line_num] = None
 
