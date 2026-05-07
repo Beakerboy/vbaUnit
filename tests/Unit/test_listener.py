@@ -5,7 +5,7 @@ from vba_unit.Interpreter.coverage_table import CoverageTable
 from vba_unit.Interpreter.vba_unit_listener import VbaUnitListener
 
 
-def test_listener() -> None
+def test_listener() -> None:
     table = CoverageTable()
     input_stream = FileStream("tests/src/VbaProject/Module1.bas", encoding="cp1252")
     lexer = vbaLexer(input_stream)
