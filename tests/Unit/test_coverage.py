@@ -42,5 +42,5 @@ def test_submit(mock_post) -> None:
     cov = MockCoverage()
     cov.endpoint = url
     result = cov.submit_report()
-    assert result = "{}"
+    assert result["message"] == "25504858355.1"
     mock_post.assert_called_once_with(url, json=expected_report) 
