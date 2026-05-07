@@ -19,8 +19,8 @@ def change_dir() -> None:
     "GITHUB_SHA": "036c36dfac1d00cb37b6510fc423641cda7b1f08",
     "GITHUB_REF": "refs/pull/6/merge"
 })
-@mock.patch('requests.post')
-def test_main(change_dir: str, mock_post: str, mocker: MockerFixture) -> None:
+def test_main(change_dir: str, mocker: MockerFixture) -> None:
+    mock_post = mocker.patch('requests.post')
     mock_response = mock.MagicMock()
     mock_response.status_code = 201
     mock_response.json.return_value = {
