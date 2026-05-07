@@ -105,6 +105,6 @@ def test_report() -> None:
             ]
         }
     }
-    with patch("builtins.open", m):
+    with mock.patch("builtins.open", m):
         received = obj.generate_report()
     assert received == expected
