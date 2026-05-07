@@ -67,9 +67,12 @@ class VbaUnitListener(VbaListener):
         super().enterEndOfLine(ctx)
         in_str = self.parser.getInputStream()
         if ctx.start is not None:
-            if (ctx.start.column == 0 or (
-                isinstance(in_str.get(ctx.start.tokenIndex - 1), Lexer.WSC) and
-                in_str.get(ctx.start.tokenIndex - 1).column == 0)):
-        # Check if this token starts at column 1, or if the preceeding token
-        # is a WSC and it starts at column 1.
-        # Add WS Line Number to Coverage array if this line is whitespace
+            tok_ind = ctx.start.tokenIndex
+            is_wsc = isinstance(in_str.get(tok_ind - 1), Lexer.WSC)
+            if (
+                    ctx.start.column == 0 or
+                    (is_wsc and in_str.get(tok_ind - 1).column == 0)
+            ):
+                index_num = ctx.start.line - 1
+                mods = self.table.definitions[self.project_name]["modules"]
+                mods[self.module_name.lower()]["coverage"][index_num] = None
