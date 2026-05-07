@@ -4,7 +4,7 @@ from vba_unit.Coverage.coveralls import Coveralls
 
 
 def test_get_coveralls() -> None:
-    co = CovFact.provider("github")
+    co = CovFact.provider("coveralls")
     assert isinstance(co, Coveralls)
 
 
