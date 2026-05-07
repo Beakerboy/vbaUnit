@@ -36,6 +36,8 @@ class VbaUnitVisitor(VbaVisitor):
     def visitAssertStatement(                                      # noqa: N802
             self: T,
             ctx: Parser.AssertStatementContext) -> None:
+        # If there is a failed assertion within the code under test
+        # an error should probably be thrown
         expr = self.visit(ctx.booleanExpression())
         if not expr:
             raise TestFailException()
