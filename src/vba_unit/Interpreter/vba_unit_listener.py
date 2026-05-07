@@ -54,7 +54,9 @@ class VbaUnitListener(VbaListener):
         if ctx.start is not None:
             if (ctx.start.column == 0 or
                     in_str.get(ctx.start.tokenIndex - 1).column == 0):
-                line_num = ctx.start.column
+                # Comments cannot be the first token in a file, so
+                # tokenIndex - 1 cannot be zero
+                line_num = ctx.start.line
                 mods = self.table.definitions[self.project_name]["modules"]
                 mods[self.module_name.lower()]["coverage"][line_num] = None
 
