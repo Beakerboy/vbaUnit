@@ -114,7 +114,9 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
         table.definitions[project]["modules"][mod_name]["cover"] = True
 
 
-def _run_all_tests(test_modules: VbaUnitModDef, table: CoverageTable) -> list:
+def _run_all_tests(
+        test_modules: dict[str, VbaUnitModDef],
+        table: CoverageTable) -> list:
     report = []
     visitor = VbaUnitVisitor(table)
     for mod_name, module in test_modules.items():
