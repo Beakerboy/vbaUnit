@@ -25,13 +25,13 @@ def test_construct(mock_check_output: str) -> None:
     assert github.remote_url == 'https://github.com/Beakerboy/FooProject'
     assert github.branch == "PR-6/merge"
     expected_calls = [
-            (
+            mock.call(
                 ["git", "log", "-1", "--pretty=format:%an%n%ae%n%cn%n%ce%n%s", "036c36dfac1d00cb37b6510fc423641cda7b1f08"],
-                "text=True"
+                text=True
             ),
-            (
+            mock.call(
                 ["git", "config", "--get", "remote.origin.url"],
-                "text=True"
+                text=True
             ),
         ]
     mock_check_output.assert_has_calls(expected_calls)
