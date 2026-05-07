@@ -92,23 +92,10 @@ def run_tests(src: str, tests: str,
     visitor = VbaUnitVisitor(table)
 
     # Find and Execute Tests
-    test_modules = table.definitions[test_project_name]["modules"]
-
     report = []
-    for mod_name, module in test_modules.items():
-        if mod_name.startswith("test"):
-            for func_name, func in module["functions"].items():
-                if func_name.startswith("test"):
-                    result = TestResult(f"{mod_name}.{func_name}")
-                    try:
-                        visitor.run_function(func, [])
-                        result.passed = True
-                    except TestFailException as e:
-                        result.passed = False
-                        result.error = str(e)
-                    report.append(result)
-
-    # Generate Report
+    if test_project_name in table.definitions:
+        test_modules = table.definitions[test_project_name]["modules"]
+        report = run_all_tests(test_modules)
     _generate_report(report)
 
 
@@ -129,6 +116,23 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
         table.definitions[project]["modules"][mod_name]["cover"] = False
     else:
         table.definitions[project]["modules"][mod_name]["cover"] = True
+
+
+def _run_all_tests() -> list:
+    report = []
+    for mod_name, module in test_modules.items():
+        if mod_name.startswith("test"):
+            for func_name, func in module["functions"].items():
+                if func_name.startswith("test"):
+                    result = TestResult(f"{mod_name}.{func_name}")
+                    try:
+                        visitor.run_function(func, [])
+                        result.passed = True
+                    except TestFailException as e:
+                        result.passed = False
+                        result.error = str(e)
+                    report.append(result)
+    return report
 
 
 def _generate_report(results: list) -> None:
