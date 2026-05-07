@@ -17,4 +17,4 @@ def test_listener() -> None:
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
 
-    assert table.definitions["vbaproject"]["modules"]["module1"]["cover"] == True
+    assert table.definitions["vbaproject"]["modules"]["module1"]["cover"]
