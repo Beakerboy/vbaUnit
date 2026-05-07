@@ -24,7 +24,7 @@ class MockCoverage(Coverage):
 
 
 @mock.patch('requests.post')
-def test_submit(mock_post) -> None:
+def test_submit(mock_post:str) -> None:
     mock_response = mock.MagicMock()
     mock_response.status_code = 201
     mock_response.json.return_value = {
@@ -35,11 +35,12 @@ def test_submit(mock_post) -> None:
 
     expected_report = {
         "json_file": ('{"repo_token": "secretsecretsecret", '
-                      '"service_name": "manual", "service_job_id": "25396149145"}')
+                      '"service_name": "manual", '
+                      '"service_job_id": "25396149145"}')
     }
     url = "https://www.example.com/api/v1"
     cov = MockCoverage()
     cov.endpoint = url
     result = cov.submit_report()
     assert result["message"] == "25504858355.1"
-    mock_post.assert_called_once_with(url, files=expected_report) 
+    mock_post.assert_called_once_with(url, files=expected_report)
