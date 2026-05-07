@@ -19,7 +19,7 @@ class Coverage():
         self.table: CoverageTable
         self.git: GitRepo
 
-    def generate_report(self: T) -> str:
+    def generate_report(self: T) -> dict:
         raise Exception("Must be implemented by an extending class")
 
     def submit_report(self: T) -> str:
