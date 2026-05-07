@@ -23,8 +23,8 @@ class MockCoverage(Coverage):
         }
 
 
-@mock.patch('requests.post')
-def test_submit(mock_post: str) -> None:
+def test_submit(mocker: MockerFixture) -> None:
+    mock_post = mocker.patch('requests.post')
     mock_response = mock.MagicMock()
     mock_response.status_code = 201
     mock_response.json.return_value = {
