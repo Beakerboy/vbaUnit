@@ -95,7 +95,7 @@ def run_tests(src: str, tests: str,
     report = []
     if test_project_name in table.definitions:
         test_modules = table.definitions[test_project_name]["modules"]
-        report = run_all_tests(test_modules)
+        report = _run_all_tests(test_modules)
     _generate_report(report)
 
 
@@ -118,7 +118,7 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
         table.definitions[project]["modules"][mod_name]["cover"] = True
 
 
-def _run_all_tests() -> list:
+def _run_all_tests(test_modules: dict) -> list:
     report = []
     for mod_name, module in test_modules.items():
         if mod_name.startswith("test"):
