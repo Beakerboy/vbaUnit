@@ -18,8 +18,8 @@ class Github(GitRepo):
         fmt = "%an%n%ae%n%cn%n%ce%n%s"
         (self.author_name,
          self.author_email,
-         self.comitter_name,
-         self.comitter_email,
+         self.committer_name,
+         self.committer_email,
          self.message) = subprocess.check_output(
             ["git", "log", "-1", f"--pretty=format:{fmt}", self.commit_sha],
             text=True
