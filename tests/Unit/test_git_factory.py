@@ -4,11 +4,11 @@ from vba_unit.Coverage.github import Github
 
 
 def test_get_github() -> None:
-    gh = Gitfact.provider("github")
+    gh = GitFact.provider("github")
     assert isinstace(gh, Github)
 
 
 def test_get_except() -> None:
     with pytest.raises(Exception) as e:
-        gh = Gitfact.provider("foo")
+        gh = GitFact.provider("foo")
     assert str(e) == "Unknown git provider."
