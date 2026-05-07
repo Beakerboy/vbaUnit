@@ -22,7 +22,7 @@ class Coverage():
     def generate_report(self: T) -> dict:
         raise Exception("Must be implemented by an extending class")
 
-    def submit_report(self: T) -> str:
+    def submit_report(self: T) -> dict:
         report = self.generate_report()
         response = requests.post(
             self.endpoint, files={'json_file': json.dumps(report)})
