@@ -71,7 +71,7 @@ class VbaUnitListener(VbaListener):
             is_wsc = isinstance(in_str.get(tok_ind - 1), Lexer.WS)
             if (
                     ctx.start.column == 0 or
-                    (is_wsc and in_str.get(tok_ind - 1).column == 0)
+                    (is_wsc and (in_str.get(tok_ind - 1).column == 0))
             ):
                 index_num = ctx.start.line - 1
                 mods = self.table.definitions[self.project_name]["modules"]
