@@ -1,3 +1,4 @@
+import os
 from typing import TypeVar
 from unittest import mock
 from vba_unit.Coverage.coveralls import Coveralls
@@ -51,6 +52,9 @@ def test_constructor() -> None:
     assert obj.endpoint == "https://coveralls.io/api/v1/jobs"
 
 
+@mock.patch.dict(os.environ, {
+    "COVERALLS_REPO_TOKEN": "secretsecretsecret",
+})
 def test_report() -> None:
     obj = Coveralls()
     obj.git = mock_github
