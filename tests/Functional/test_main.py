@@ -20,7 +20,6 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
             "vba_test_runner.py"
         ],
     )
-    os.chdir("./tests")
     main()
 
     messages = [
@@ -30,7 +29,7 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
         "test_boolean.test_and: PASS",
         "-----------------------\nSummary: 2/3 passed."
     ]
-    # assert mock_print.call_count == len(messages)
+    assert mock_print.call_count == len(messages)
     i = 0
     for message in messages:
         assert mock_print.call_args_list[i].args[0] == message
