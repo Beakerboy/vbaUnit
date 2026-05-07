@@ -64,4 +64,5 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
                       '"service_name": "manual", '
                       '"service_job_id": "25396149145"}')
     }
+    url = "https://coveralls.io/api/v1/jobs"
     mock_post.assert_called_once_with(url, files=expected_report)
