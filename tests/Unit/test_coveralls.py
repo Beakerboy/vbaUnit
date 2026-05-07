@@ -69,7 +69,7 @@ def test_report() -> None:
         "'Comment\r\n"
         "'Comment\r\n"
         'Function Determinant(a, b, c)\r\n'
-        '    Determinant = b ^ 2 - 4 * a * c'
+        '    Determinant = b ^ 2 - 4 * a * c\r\n'
         'End Function\r\n'
     )
     m = mock.mock_open(read_data=fake_content)
