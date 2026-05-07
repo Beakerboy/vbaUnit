@@ -21,7 +21,7 @@ class VbaUnitListener(VbaListener):
         mods[self.module_name.lower()]["coverage"] = [0] * total_lines
         mods[self.module_name.lower()]["cover"] = True
         mods[self.module_name.lower()]["coverage"][total_lines - 1] = None
-        mods[self.module_name.lower()]["coverage"][ctx.start.line] = 1
+        mods[self.module_name.lower()]["coverage"][ctx.start.line - 1] = 1
 
     def enterFunctionDeclaration(                                  # noqa: N802
             self: T,
