@@ -21,6 +21,6 @@ def test_listener() -> None:
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
     visitor = VbaUnitVisitor(table)
-    ctx = table.definitions["vbaproject"]["modules"]["module1"]["functions"]["foo"]
-    visitor.run_function(ctx, [])
+    func = table.definitions["vbaproject"]["modules"]["module1"]["functions"]["foo"]
+    visitor.run_function(func, [])
     assert 4 in visitor.visited_lines
