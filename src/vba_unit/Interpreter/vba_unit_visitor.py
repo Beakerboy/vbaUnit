@@ -4,7 +4,7 @@ from antlr4_vba.vbaParser import vbaParser as Parser
 from pyvba_interpreter.vba_visitor import VbaVisitor
 from typing import Any, TypeVar
 from vba_unit.test_fail_exception import TestFailException
-from .coverage_table import CoverageTable
+from .coverage_table import VbaUnitFuncDef, CoverageTable
 
 
 T = TypeVar('T', bound='VbaUnitVisitor')
@@ -53,7 +53,7 @@ class VbaUnitVisitor(VbaVisitor):
             raise TestFailException()
 
     def run_function(self: T,
-                     defn: FunctionDefinition | LibraryDefinition,
+                     defn: VbaUnitFuncDef,
                      args: list[Any]) -> Any:
         if (self.context[0] != defn["project"] or
                 self.context[1] != defn["module"] or
