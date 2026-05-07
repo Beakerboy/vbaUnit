@@ -21,7 +21,7 @@ class Coveralls(Coverage):
             for module in lib["modules"].values():
                 if module["cover"]:
                     file_cov = self.file_coverage(module)
-                    source_files.append([file_cov])
+                    source_files.append(file_cov)
 
         commit_sha = os.environ.get('GITHUB_SHA')
         assert commit_sha is not None
