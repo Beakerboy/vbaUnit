@@ -8,8 +8,8 @@ from vba_unit.Coverage.github import Github
     "GITHUB_SHA": "036c36dfac1d00cb37b6510fc423641cda7b1f08",
     "GITHUB_REF": "refs/pull/6/merge"
 })
-@mock.patch("subprocess.check_output")
-def test_construct(mock_check_output: str) -> None:
+def test_construct(mocker: MockerFixture) -> None:
+    mock_check_output = mocker.patch('subprocess.check_output')
     mock_check_output.side_effect = [
         "John Doe\nme@me.com\nGitHub\nnoreply@github.com\ncommit message",
         'https://github.com/Beakerboy/FooProject'
