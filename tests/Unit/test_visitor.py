@@ -23,6 +23,6 @@ def test_listener() -> None:
     visitor = VbaUnitVisitor(table)
     mod = table.definitions["vbaproject"]["modules"]["vbaproject"]["module1"]
     func = mod["functions"]["foo"]
+    assert mod["coverage"][3] == 0
     visitor.run_function(func, [])
-    
     assert mod["coverage"][3] == 1
