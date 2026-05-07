@@ -43,4 +43,4 @@ def test_submit(mock_post) -> None:
     cov.endpoint = url
     result = cov.submit_report()
     assert result["message"] == "25504858355.1"
-    mock_post.assert_called_once_with(url, json=expected_report) 
+    mock_post.assert_called_once_with(url, files={"json_file": {expected_report}}) 
