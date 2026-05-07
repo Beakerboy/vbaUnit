@@ -12,3 +12,10 @@ def test_construct() -> None:
     github = Github()
     assert github.job_id == "25396149145"
     
+def test_subprocess() -> None:
+    commit_sha = os.environ.get('GITHUB_SHA', '')
+    fmt = "%an%n%ae%n%cn%n%ce%n%s"
+    message = subprocess.check_output(
+            ["git", "log", "-1", f"--pretty=format:{fmt}", commit_sha],
+            text=True)
+    assert message = ""
