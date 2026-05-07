@@ -10,5 +10,5 @@ def test_get_github() -> None:
 
 def test_get_except() -> None:
     with pytest.raises(Exception) as e:
-        gh = GitFact.provider("foo")
+        GitFact.provider("foo")
     assert str(e) == "Unknown git provider."
