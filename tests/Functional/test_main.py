@@ -60,9 +60,26 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
         assert mock_print.call_args_list[i].args[0] == message
         i += 1
     expected_report = {
-        "json_file": ('{"repo_token": "secretsecretsecret", '
-                      '"service_name": "manual", '
-                      '"service_job_id": "25396149145"}')
+        "json_file": (
+            '{"repo_token": "secretsecretsecret", '
+            '"service_name": "manual", '
+            '"service_job_id": "25396149145"
+            '"source_files": ['
+            '{"name": "./src/VbaProject/Module1.bas", '
+            '"source_digest": "7b6081d51c6c30a67909461eb2215f69", '
+            '"coverage": [0, 0, null, 0, null]}], '
+            '"git": {"head": {'
+            '"id": "036c36dfac1d00cb37b6510fc423641cda7b1f08", '
+            '"author_name": "John Doe", '
+            '"author_email": "me@me.com", '
+            '"committer_name": "GitHub", '
+            '"committer_email": "noreply@github.com", '
+            '"message": "commit message"}, '
+            '"branch": "PR-6/merge", '
+            '"remotes": [{'
+            '"name": "origin", '
+            '"url": "https://github.com/Beakerboy/FooProject"}]}}'
+        )
     }
     url = "https://coveralls.io/api/v1/jobs"
     mock_post.assert_called_once_with(url, files=expected_report)
