@@ -82,7 +82,7 @@ def test_report() -> None:
         'service_job_id': '25396149145',
         'source_files': [{
             'name': 'src/Modules/Roots.bas',
-            'source_digest': 'a033a513b3aa7a7f3b2d0eb5dc9f9525',
+            'source_digest': '907964ebbf86bec3f8b1fed5e48ed615',
             'coverage': [1, None, None, None, None, None, None,
                          None, None, None, None, 1, 1, 1]
         }],
