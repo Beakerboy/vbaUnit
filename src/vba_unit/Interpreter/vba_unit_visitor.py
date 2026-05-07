@@ -25,7 +25,6 @@ class VbaUnitVisitor(VbaVisitor):
             if tok is not None:
                 line_num = tok.line
                 if line_num != self.current_line:
-                    self.visited_lines.add(line_num)
                     mods = self.table.definitions[self.context[0]]["modules"]
                     mods[self.context[1]]["coverage"][line_num - 1] += 1
 
