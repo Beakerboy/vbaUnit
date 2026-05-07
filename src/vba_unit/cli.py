@@ -88,9 +88,6 @@ def run_tests(src: str, tests: str,
     for file_path in test_files:
         _parse_file(file_path, test_project_name, table)
 
-    # Setup Visitor
-    visitor = VbaUnitVisitor(table)
-
     # Find and Execute Tests
     report = []
     if test_project_name in table.definitions:
@@ -120,6 +117,7 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
 
 def _run_all_tests(test_modules: VbaUnitModDef) -> list:
     report = []
+    visitor = VbaUnitVisitor(table)
     for mod_name, module in test_modules.items():
         if mod_name.startswith("test"):
             for func_name, func in module["functions"].items():
