@@ -1,5 +1,4 @@
 import os
-import subprocess
 from unittest import mock
 from vba_unit.Coverage.github import Github
 
