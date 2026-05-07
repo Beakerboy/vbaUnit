@@ -21,7 +21,8 @@ def test_listener() -> None:
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
     visitor = VbaUnitVisitor(table)
-    func = table.definitions["vbaproject"]["modules"]["module1"]["functions"]["foo"]
-    visitor.run_function(func, [])
     mod = table.definitions["vbaproject"]["modules"]["vbaproject"]["module1"]
+    func = mod["functions"]["foo"]
+    visitor.run_function(func, [])
+    
     assert mod["coverage"][3] == 1
