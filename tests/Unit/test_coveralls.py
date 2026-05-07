@@ -1,6 +1,10 @@
+from typing import TypeVar
 from unittest import mock
 from vba_unit.Coverage.coveralls import Coveralls
 
+
+
+T = TypeVar('T', bound='MockTable')
 
 
 mock_github = mock.Mock()
