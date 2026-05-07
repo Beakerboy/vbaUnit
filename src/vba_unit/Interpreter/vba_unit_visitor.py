@@ -14,6 +14,7 @@ class VbaUnitVisitor(VbaVisitor):
 
     def __init__(self: T, table: CoverageTable) -> None:
         self.visited_lines: set[int] = set()
+        self.current_line = 0
         super().__init__(table)
 
     def visit(self: T, tree: Tree) -> Any:
@@ -21,12 +22,16 @@ class VbaUnitVisitor(VbaVisitor):
             # Get the starting line number from the context
             # ANTLR line numbers are typically 1-indexed
             tok = tree.start
+            prev_line = self.current_line
             if tok is not None:
                 line_num = tok.line
-                self.visited_lines.add(line_num)
+                if line_num != self.current_line
+                    self.visited_lines.add(line_num)
+                    self.current_line = line_num
 
         # Call the original visit to continue traversal
         return super().visit(tree)
+        self.self.current_line = prev_line
 
     def visitAssertStatement(                                      # noqa: N802
             self: T,
