@@ -11,7 +11,7 @@ from vba_unit.Coverage.github import Github
 })
 @patch("subprocess.check_output")
 def test_construct(mock_check_output: str) -> None:
-    mock_check_output.return_value = ["John Doe\nme@me.com\nGitHub\nnoreply@github.com\ncommit message", 'https://github.com/Beakerboy/FooProject']
+    mock_check_output.side_effect = ["John Doe\nme@me.com\nGitHub\nnoreply@github.com\ncommit message", 'https://github.com/Beakerboy/FooProject']
     github = Github()
     assert github.job_id == "25396149145"
     assert github.author_name == John Doe
@@ -21,3 +21,14 @@ def test_construct(mock_check_output: str) -> None:
     assert github.message == "commit message"
     assert self.remote_url == 'https://github.com/Beakerboy/vbaUnit'
     assert github.branch == "PR-6/merge"
+    expected_calls = [
+            [
+                ["git", "log", "-1", f"--pretty=format:{fmt}", self.commit_sha],
+                text=True
+            ],
+            [
+                ["git", "config", "--get", "remote.origin.url"],
+                text=True
+            ]
+        ]
+    mock_check_output.assert_has_calls(expected_calls)
