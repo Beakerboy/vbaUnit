@@ -5,7 +5,7 @@ from pytest_mock import MockerFixture
 
 
 @pytest.fixture
-def change_dir():
+def change_dir() -> None:
     original_dir = os.getcwd()
     os.chdir("./tests")
     yield  # The test runs here
