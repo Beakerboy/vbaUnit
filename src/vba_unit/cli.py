@@ -8,7 +8,7 @@ from antlr4_vba.vbaParser import vbaParser
 from typing import TypeVar
 from vba_unit.Coverage.coverage_factory import CovFact
 from vba_unit.Coverage.git_factory import GitFact
-from vba_unit.Interpreter.coverage_table import CoverageTable
+from vba_unit.Interpreter.coverage_table import VbaUnitModDef, CoverageTable
 from vba_unit.Interpreter.vba_unit_listener import VbaUnitListener
 from vba_unit.Interpreter.vba_unit_visitor import VbaUnitVisitor
 from vba_unit.test_fail_exception import TestFailException
@@ -118,7 +118,7 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
         table.definitions[project]["modules"][mod_name]["cover"] = True
 
 
-def _run_all_tests(test_modules: dict) -> list:
+def _run_all_tests(test_modules: VbaUnitModDef) -> list:
     report = []
     for mod_name, module in test_modules.items():
         if mod_name.startswith("test"):
