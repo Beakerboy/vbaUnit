@@ -4,7 +4,6 @@ from unittest import mock
 from vba_unit.Coverage.coveralls import Coveralls
 
 
-
 T = TypeVar('T', bound='MockTable')
 
 
