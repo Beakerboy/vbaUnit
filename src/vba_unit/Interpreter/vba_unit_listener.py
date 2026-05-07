@@ -53,7 +53,7 @@ class VbaUnitListener(VbaListener):
         in_str = self.parser.getInputStream()
         if ctx.start is not None:
             if (ctx.start.column == 0 or
-                    in_str.get(ctx.start.tokenIndex - 1).start.column == 0):
+                    in_str.get(ctx.start.tokenIndex - 1).column == 0):
                 line_num = ctx.start.column
                 mods = self.table.definitions[self.project_name]["modules"]
                 mods[self.module_name.lower()]["coverage"][line_num] = None
