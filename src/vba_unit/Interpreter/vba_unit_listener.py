@@ -50,10 +50,11 @@ class VbaUnitListener(VbaListener):
         super().enterCommentBody(ctx)
         # Check if the token starts at column 1 or if the token before this is
         # a wsc and it starts at column 1
+        in_str = self.parser.getInputStream() 
         if (ctx.start.column == 0 or
-                self.parser.getInputStream().get(ctx.start.tokenIndex - 1)):
-            ctx.start.column
-        # Add Comment Line Number to Coverage array if this line is a comment
+                in_sr.get(ctx.start.tokenIndex - 1).start.column == 0):
+            line_num = ctx.start.column
+            mods[self.module_name.lower()]["coverage"][line_num] = None
 
     def enterEndOfLine(                                            # noqa: N802
             self: T,
