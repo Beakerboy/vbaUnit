@@ -49,7 +49,10 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
         "test_boolean.test_false: FAIL: ",
         "test_boolean.test_and: PASS",
         "-----------------------\nSummary: 2/3 passed.",
-        "Submitting coverage to coveralls.io..."
+        "Submitting coverage to coveralls.io...",
+        "Coverage submitted!",
+        "Job #25504858355.1",
+        "https://coveralls.io/builds/79326270"
     ]
     assert mock_print.call_count == len(messages)
     i = 0
