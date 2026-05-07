@@ -48,7 +48,8 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
         "test_boolean.test_true: PASS",
         "test_boolean.test_false: FAIL: ",
         "test_boolean.test_and: PASS",
-        "-----------------------\nSummary: 2/3 passed.",
+        "test_boolean.test_eval: PASS",
+        "-----------------------\nSummary: 3/4 passed.",
         "Submitting coverage to coveralls.io...",
         "Coverage submitted!",
         "Job #25504858355.1",
@@ -67,7 +68,7 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
             '"source_files": ['
             '{"name": "./src/VbaProject/Module1.bas", '
             '"source_digest": "7b6081d51c6c30a67909461eb2215f69", '
-            '"coverage": [0, 0, null, 0, null]}], '
+            '"coverage": [1, 1, null, 1, 1, null]}], '
             '"git": {"head": {'
             '"id": "036c36dfac1d00cb37b6510fc423641cda7b1f08", '
             '"author_name": "John Doe", '
