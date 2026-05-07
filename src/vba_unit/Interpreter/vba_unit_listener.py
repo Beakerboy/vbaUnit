@@ -68,7 +68,7 @@ class VbaUnitListener(VbaListener):
         in_str = self.parser.getInputStream()
         if ctx.start is not None:
             tok_ind = ctx.start.tokenIndex
-            is_wsc = isinstance(in_str.get(tok_ind - 1), Lexer.WSC)
+            is_wsc = isinstance(in_str.get(tok_ind - 1), Lexer.WS)
             if (
                     ctx.start.column == 0 or
                     (is_wsc and in_str.get(tok_ind - 1).column == 0)
