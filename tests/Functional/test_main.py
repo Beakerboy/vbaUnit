@@ -59,3 +59,9 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
     for message in messages:
         assert mock_print.call_args_list[i].args[0] == message
         i += 1
+    expected_report = {
+        "json_file": ('{"repo_token": "secretsecretsecret", '
+                      '"service_name": "manual", '
+                      '"service_job_id": "25396149145"}')
+    }
+    mock_post.assert_called_once_with(url, files=expected_report)
