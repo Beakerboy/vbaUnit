@@ -1,5 +1,9 @@
+from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
+from antlr4_vba.vbaLexer import vbaLexer
+from antlr4_vba.vbaParser import vbaParser
 from vba_unit.Interpreter.coverage_table import CoverageTable
-from vba_unit.Interpreter.vba_unit_listener import VbaUnitVisitor
+from vba_unit.Interpreter.vba_unit_listener import VbaUnitListener
+from vba_unit.Interpreter.vba_unit_visitor import VbaUnitVisitor
 
 
 def test_listener() -> None:
