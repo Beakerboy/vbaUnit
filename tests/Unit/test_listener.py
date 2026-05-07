@@ -21,4 +21,4 @@ def test_listener() -> None:
     walker.walk(listener, tree)
 
     assert table.definitions["vbaproject"]["modules"]["module1"]["cover"]
-    assert table.definitions["vbaproject"]["modules"]["module1"]["coverage"] == [0, 0, 0, 0]
+    assert table.definitions["vbaproject"]["modules"]["module1"]["coverage"] == [0, 0, 0, 0, 0]
