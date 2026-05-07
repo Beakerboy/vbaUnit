@@ -22,7 +22,7 @@ def test_construct(mock_check_output: str) -> None:
     assert github.committer_name == "GitHub"
     assert github.committer_email == "noreply@github.com"
     assert github.message == "commit message"
-    assert github.remote_url == 'https://github.com/Beakerboy/vbaUnit'
+    assert github.remote_url == 'https://github.com/Beakerboy/FooProject'
     assert github.branch == "PR-6/merge"
     expected_calls = [
             [
