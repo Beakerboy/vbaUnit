@@ -14,6 +14,8 @@ class VbaUnitVisitor(VbaVisitor):
 
     def __init__(self: T, table: CoverageTable) -> None:
         self.current_line = 0
+        # We need to add coverage for the edge condition where a line does not
+        # change, but the context does.
         self.context_changed = False
         super().__init__(table)
 
@@ -28,15 +30,18 @@ class VbaUnitVisitor(VbaVisitor):
                 if mods[self.context[1]]["cover"]:
                     line_num = tok.line
                     if line_num != self.current_line or self.context_changed:
+                        self.context_changed = False
                         mods = self.table.definitions[self.context[0]]["modules"]
                         coverage = mods[self.context[1]]["coverage"]
                         try:
                             coverage[line_num - 1] += 1
                         except:
-                            raise Exception(f"mod: {self.context[1]} line: {line_num} size: {len(coverage)}")
+                            msg = (f"mod: {self.context[1]} line: {line_num} "
+                                   f"size: {len(coverage)}")
+                            raise Exception(msg)
         # Call the original visit to continue traversal
         return super().visit(tree)
-        self.self.current_line = prev_line
+        self.current_line = prev_line
 
     def visitAssertStatement(                                      # noqa: N802
             self: T,
@@ -46,3 +51,11 @@ class VbaUnitVisitor(VbaVisitor):
         expr = self.visit(ctx.booleanExpression())
         if not expr:
             raise TestFailException()
+
+    deg run_function(self: T,
+                     defn: FunctionDefinition | LibraryDefinition,
+                     args: list[Any]) -> Any:
+        if (self.context[0] != defn["project"] or
+                self.context[1] != defn["module"] or
+                self.context[2] != defn["name"]):
+            self.context_changed = True
