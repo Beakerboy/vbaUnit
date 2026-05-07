@@ -24,6 +24,20 @@ mock_github.repo.return_value = (
     }
 )
 
+mock_table = mock.Mock()
+mock_table.definitions.return_value = ({
+    "vbaproject": {
+        "modules": {
+            "roots": {
+                "name": "roots",
+                "cover": True,
+                "coverage": [1, None, None, None, None, None, None,
+                             None, None, None, None, 1, 1, 1]
+                "path": 'src/Modules/Roots.bas'
+            }
+        }
+    }
+})
 def test_constructor() -> None:
     obj = Coveralls()
     assert obj.endpoint == "https://coveralls.io/api/v1/jobs"
