@@ -21,6 +21,11 @@ def change_dir() -> None:
 })
 def test_main(change_dir: str, mocker: MockerFixture) -> None:
     mock_post = mocker.patch('requests.post')
+    mock_check_output = mocker.patch('subprocess.check_output')
+    mock_check_output.side_effect = [
+        "John Doe\nme@me.com\nGitHub\nnoreply@github.com\ncommit message",
+        'https://github.com/Beakerboy/FooProject'
+    ]
     mock_response = mock.MagicMock()
     mock_response.status_code = 201
     mock_response.json.return_value = {
