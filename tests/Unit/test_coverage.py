@@ -1,4 +1,5 @@
 import pytest
+from pytest_mock import MockerFixture
 from typing import TypeVar
 from unittest import mock
 from vba_unit.Coverage.coverage import Coverage
