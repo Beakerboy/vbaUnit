@@ -26,7 +26,11 @@ def test_construct(mock_check_output: str) -> None:
     assert github.branch == "PR-6/merge"
     expected_calls = [
             mock.call(
-                ["git", "log", "-1", "--pretty=format:%an%n%ae%n%cn%n%ce%n%s", "036c36dfac1d00cb37b6510fc423641cda7b1f08"],
+                [
+                    "git", "log", "-1",
+                    "--pretty=format:%an%n%ae%n%cn%n%ce%n%s",
+                     "036c36dfac1d00cb37b6510fc423641cda7b1f08"
+                ],
                 text=True
             ),
             mock.call(
