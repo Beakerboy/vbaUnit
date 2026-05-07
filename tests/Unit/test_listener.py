@@ -21,4 +21,7 @@ def test_listener() -> None:
     walker.walk(listener, tree)
 
     assert table.definitions["vbaproject"]["modules"]["module1"]["cover"]
-    assert table.definitions["vbaproject"]["modules"]["module1"]["coverage"] == [0, 0, None, 0, None]
+
+    result = table.definitions["vbaproject"]["modules"]["module1"]["coverage"]
+    expected = [0, 0, None, 0, None]
+    assert result == expected
