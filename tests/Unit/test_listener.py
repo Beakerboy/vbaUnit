@@ -23,5 +23,5 @@ def test_listener() -> None:
     assert table.definitions["vbaproject"]["modules"]["module1"]["cover"]
 
     result = table.definitions["vbaproject"]["modules"]["module1"]["coverage"]
-    expected = [0, 0, None, 0, None]
+    expected = [0, 0, None, 0, 0, None]
     assert result == expected
