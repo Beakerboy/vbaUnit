@@ -75,5 +75,5 @@ def test_report() -> None:
             ]
         }
     }
-    received = obj.generate_repoet()
+    received = obj.generate_report()
     assert received == expected
