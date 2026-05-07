@@ -34,7 +34,7 @@ def test_submit(mock_post) -> None:
     mock_post.return_value = mock_response
 
     expected_report = {
-        "json_file":{
+        "json_file": {
             'repo_token': 'secretsecretsecret',
             'service_name': 'manual',
             'service_job_id': '25396149145'
