@@ -131,10 +131,6 @@ def _run_all_tests(
                         result.passed = False
                         result.error = str(e)
                     report.append(result)
-    visits = visitor.visited_lines
-    for i in range(len(module["coverage"])):
-        if module["coverage"][i] is not None and i + 1 in visits:
-            module["coverage"][i] = 1
     return report
 
 def _generate_report(results: list) -> None:
