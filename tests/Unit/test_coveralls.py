@@ -73,7 +73,7 @@ def test_report() -> None:
         '    Determinant = b ^ 2 - 4 * a * c'
         'End Function\r\n'
     )
-    m = mock_open(read_data=fake_content)
+    m = mock.mock_open(read_data=fake_content)
     obj = Coveralls()
     obj.git = mock_github
     obj.table = MockTable()
