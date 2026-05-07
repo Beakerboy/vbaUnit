@@ -48,7 +48,7 @@ def test_construct(mock_check_output: str) -> None:
         'remotes': [
             {
                 'name': 'origin',
-                'url': 'https://github.com/Beakerboy/VBA-Projects'
+                'url': 'https://github.com/Beakerboy/FooProject'
             }
         ]
     }
