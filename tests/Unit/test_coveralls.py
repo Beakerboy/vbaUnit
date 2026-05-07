@@ -46,6 +46,7 @@ def test_constructor() -> None:
 def test_report() -> None:
     obj = Coveralls()
     obj.git = mock_github
+    obj.table = mock_table
     expected = {
         'repo_token': 'secretsecretsecret',
         'service_name': 'manual',
