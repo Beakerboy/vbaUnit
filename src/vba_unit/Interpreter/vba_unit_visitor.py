@@ -25,7 +25,7 @@ class VbaUnitVisitor(VbaVisitor):
             prev_line = self.current_line
             if tok is not None:
                 line_num = tok.line
-                if line_num != self.current_line
+                if line_num != self.current_line:
                     self.visited_lines.add(line_num)
                     self.current_line = line_num
 
