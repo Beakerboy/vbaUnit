@@ -75,5 +75,5 @@ def test_report() -> None:
             ]
         }
     }
-    received = coveralls.generate_repoet()
+    received = obj.generate_repoet()
     assert received == expected
