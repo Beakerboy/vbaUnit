@@ -56,9 +56,9 @@ class VbaUnitListener(VbaListener):
                     in_str.get(ctx.start.tokenIndex - 1).column == 0):
                 # Comments cannot be the first token in a file, so
                 # tokenIndex - 1 cannot be less than zero
-                line_num = ctx.start.line
+                index_num = ctx.start.line - 1
                 mods = self.table.definitions[self.project_name]["modules"]
-                mods[self.module_name.lower()]["coverage"][line_num] = None
+                mods[self.module_name.lower()]["coverage"][index_num] = None
 
     def enterEndOfLine(                                            # noqa: N802
             self: T,
