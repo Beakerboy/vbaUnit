@@ -1,7 +1,9 @@
 from antlr4.tree.Tree import Tree
 from antlr4 import ParserRuleContext
 from antlr4_vba.vbaParser import vbaParser as Parser
-from pyvba_interpreter.symbol_table import FunctionDefinition, SymbolTable
+from pyvba_interpreter.symbol_table import (
+    FunctionDefinition, LibraryDefinition, SymbolTable
+)
 from pyvba_interpreter.vba_visitor import VbaVisitor
 from typing import Any, TypeVar
 from vba_unit.test_fail_exception import TestFailException
@@ -44,10 +46,11 @@ class VbaUnitVisitor(VbaVisitor):
         # Touch the end function statement
         # If there is an Exit Function statement immediately beore the end,
         # is there a way to prohibit it from being touched...does it matter?
-        line_num = ctx.stop.line
-        mods = self.table.definitions[self.context[0]]["modules"]
-        coverage = mods[self.context[1]]["extra"]["vba_unit"]["coverage"]
-        coverage[line_num - 1] += 1
+        if ctx.stop is not None:
+            line_num = ctx.stop.line
+            mods = self.table.definitions[self.context[0]]["modules"]
+            coverage = mods[self.context[1]]["extra"]["vba_unit"]["coverage"]
+            coverage[line_num - 1] += 1
 
         return super().visitFunctionDeclaration(ctx)
 
@@ -61,7 +64,7 @@ class VbaUnitVisitor(VbaVisitor):
             raise TestFailException()
 
     def run_function(self: T,
-                     defn: FunctionDefinition,
+                     defn: FunctionDefinition | LibraryDefinition,
                      args: list[Any]) -> Any:
         prev_line = self.current_line
         if (self.context[0] != defn["project"] or
