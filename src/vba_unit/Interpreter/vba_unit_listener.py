@@ -24,7 +24,7 @@ class VbaUnitListener(VbaListener):
             self: T,
             ctx: Parser.ProceduralModuleHeaderContext) -> None:
         super().enterProceduralModuleHeader(ctx)
-        token_stream: CommonTokenStream = self.parser.getInputStream()
+        token_stream = self.parser.getTokenStream()
         token_stream.fill()
         eof_token = token_stream.get(len(token_stream.tokens) - 1)
         total_lines = eof_token.line
