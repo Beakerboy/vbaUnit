@@ -36,6 +36,18 @@ class VbaUnitVisitor(VbaVisitor):
         return super().visit(tree)
         self.current_line = prev_line
 
+    def visitFunctionDeclaration(                                  # noqa: N802
+            self: T,
+            ctx: Parser.FunctionDeclarationContext) -> Any:
+        super().visitFunctionDeclaration(ctx)
+        # Touch the end function statement
+        # If there is an Exit Function statement immediately beore the end,
+        # is there a way to prohibit it from being touched...does it matter?
+        tok = ctx.end.line
+        mods = self.table.definitions[self.context[0]]["modules"]
+        coverage = mods[self.context[1]]["coverage"]
+        coverage[line_num - 1] += 1
+
     def visitAssertStatement(                                      # noqa: N802
             self: T,
             ctx: Parser.AssertStatementContext) -> None:
