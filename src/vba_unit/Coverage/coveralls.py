@@ -43,5 +43,5 @@ class Coveralls(Coverage):
         return {
             "name": file_path,
             "source_digest": digest,
-            "coverage": module["coverage"],
+            "coverage": module["extras"]["vba_unit"]["coverage"],
         }
