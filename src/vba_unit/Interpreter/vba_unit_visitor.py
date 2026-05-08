@@ -24,7 +24,7 @@ class VbaUnitVisitor(VbaVisitor):
             prev_line = self.current_line
             if tok is not None:
                 mods = self.table.definitions[self.context[0]]["modules"]
-                if mods[self.context[1]]["cover"]:
+                if mods[self.context[1]]["extra"]["vba_unit"]["cover"]:
                     line_num = tok.line
                     if line_num != self.current_line:
                         self.current_line = line_num
