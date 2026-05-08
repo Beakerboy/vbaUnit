@@ -14,6 +14,10 @@ class VbaUnitModuleextra(TypedDict):
 
 
 class VbaUnitListener(VbaListener):
+    def __init__(self: T, project: str, table: SymbolTable) -> None:
+        self.parser: Parser
+        super().__init__(project, table)
+
     def enterProceduralModuleHeader(                               # noqa: N802
             self: T,
             ctx: Parser.ProceduralModuleHeaderContext) -> None:
