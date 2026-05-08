@@ -43,7 +43,7 @@ class VbaUnitVisitor(VbaVisitor):
         # Touch the end function statement
         # If there is an Exit Function statement immediately beore the end,
         # is there a way to prohibit it from being touched...does it matter?
-        line_num = ctx.end.line
+        line_num = ctx.stop.line
         mods = self.table.definitions[self.context[0]]["modules"]
         coverage = mods[self.context[1]]["coverage"]
         coverage[line_num - 1] += 1
