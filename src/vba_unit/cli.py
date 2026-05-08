@@ -28,7 +28,7 @@ def main() -> None:
     parser.add_argument(
         "--src",
         type=str,
-        default="./src",
+        default="src",
         help="The path to your project."
     )
     parser.add_argument(
