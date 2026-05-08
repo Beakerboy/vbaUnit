@@ -19,7 +19,7 @@ class Coveralls(Coverage):
         source_files = []
         for lib in self.table.definitions.values():
             for module in lib["modules"].values():
-                if module["cover"]:
+                if module["extra"]["vba_unit"]["cover"]:
                     file_cov = self.file_coverage(module)
                     source_files.append(file_cov)
 
