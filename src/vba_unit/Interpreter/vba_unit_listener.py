@@ -33,7 +33,7 @@ class VbaUnitListener(VbaListener):
         # EOF line is ignored.
         # Need to test the case where EOF is on the same line as code.
         mod["extra"]["vba_unit"]["coverage"][total_lines - 1] = None
-        mod["coverage"][ctx.start.line - 1] = 1
+        mod["extra"]["vba_unit"]["coverage"][ctx.start.line - 1] = 1
 
     def enterCommentBody(                                          # noqa: N802
             self: T,
