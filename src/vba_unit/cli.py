@@ -107,11 +107,12 @@ def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
     walker.walk(listener, tree)
     mod_name = listener.module_name.lower()
     project = project.lower()
-    table.definitions[project]["modules"][mod_name]["path"] = file_path
+    extras = table.definitions[project]["modules"][mod_name]["extras"]["vba_unit"]
+    extras["path"] = file_path
     if project == "vbatests":
-        table.definitions[project]["modules"][mod_name]["cover"] = False
+        extras["cover"] = False
     else:
-        table.definitions[project]["modules"][mod_name]["cover"] = True
+        extras["cover"] = True
 
 
 def _run_all_tests(
