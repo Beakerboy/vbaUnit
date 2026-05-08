@@ -17,11 +17,16 @@ class VbaUnitListener(VbaListener):
         token_stream.fill()
         eof_token = token_stream.get(len(token_stream.tokens) - 1)
         total_lines = eof_token.line
-        mods = self.table.definitions[self.project_name]["modules"]
-        mods[self.module_name.lower()]["coverage"] = [0] * total_lines
-        mods[self.module_name.lower()]["cover"] = True
-        mods[self.module_name.lower()]["coverage"][total_lines - 1] = None
-        mods[self.module_name.lower()]["coverage"][ctx.start.line - 1] = 1
+        name = self.module_name.lower()
+        mod = self.table.definitions[self.project_name]["modules"][name]
+        mod["extras"]["vba_unit"] = {
+            "coverage": [0] * total_lines,
+            "cover": True
+        }
+        # EOF line is ignored.
+        # Need to test the case where EOF is on the same line as code.
+        mod["extras"]["vba_unit"]["coverage"][total_lines - 1] = None
+        mod["coverage"][ctx.start.line - 1] = 1
 
     def enterCommentBody(                                          # noqa: N802
             self: T,
@@ -36,8 +41,9 @@ class VbaUnitListener(VbaListener):
                 # Comments cannot be the first token in a file, so
                 # tokenIndex - 1 cannot be less than zero
                 index_num = ctx.start.line - 1
+                name = self.module_name.lower()
                 mods = self.table.definitions[self.project_name]["modules"]
-                mods[self.module_name.lower()]["coverage"][index_num] = None
+                mods[name]["extras"]["vba_unit"]["coverage"][index_num] = None
 
     def enterEndOfLine(                                            # noqa: N802
             self: T,
@@ -52,5 +58,6 @@ class VbaUnitListener(VbaListener):
                     (is_wsc and (in_str.get(tok_ind - 1).column == 0))
             ):
                 index_num = ctx.start.line - 1
+                name = self.module_name.lower()
                 mods = self.table.definitions[self.project_name]["modules"]
-                mods[self.module_name.lower()]["coverage"][index_num] = None
+                mods[name]["extras"]["vba_unit"]["coverage"][index_num] = None
