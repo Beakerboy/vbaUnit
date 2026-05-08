@@ -27,15 +27,11 @@ class VbaUnitVisitor(VbaVisitor):
                 if mods[self.context[1]]["cover"]:
                     line_num = tok.line
                     if line_num != self.current_line:
+                        self.current_line = line_num
                         self.context_changed = False
                         mods = self.table.definitions[self.context[0]]["modules"]
                         coverage = mods[self.context[1]]["coverage"]
-                        try:
-                            coverage[line_num - 1] += 1
-                        except:
-                            msg = (f"mod: {self.context[1]} line: {line_num} "
-                                   f"size: {len(coverage)}")
-                            raise Exception(msg)
+                        coverage[line_num - 1] += 1
         # Call the original visit to continue traversal
         return super().visit(tree)
         self.current_line = prev_line
