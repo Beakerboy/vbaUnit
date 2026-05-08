@@ -19,9 +19,9 @@ def test_listener() -> None:
     listener.parser = parser
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
+    extra = table.definitions["vbaproject"]["modules"]["module1"]["extra"]["vba_unit"]
+    assert extra["cover"]
 
-    assert table.definitions["vbaproject"]["modules"]["module1"]["cover"]
-
-    result = table.definitions["vbaproject"]["modules"]["module1"]["coverage"]
+    result = extra["coverage"]
     expected = [1, 0, None, 0, 0, None]
     assert result == expected
