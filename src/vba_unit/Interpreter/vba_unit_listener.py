@@ -48,7 +48,7 @@ class VbaUnitListener(VbaListener):
         super().enterCommentBody(ctx)
         # Check if the token starts at column 1 or if the token before this is
         # a wsc and it starts at column 1
-        in_str = self.parser.getInputStream()
+        in_str: CommonTokenStream = self.parser.getInputStream()
         if ctx.start is not None and ctx.start.tokenIndex is not None:
             if (ctx.start.column == 0 or
                     in_str.get(ctx.start.tokenIndex - 1).column == 0):
@@ -63,7 +63,7 @@ class VbaUnitListener(VbaListener):
             self: T,
             ctx: Parser.EndOfLineContext) -> None:
         super().enterEndOfLine(ctx)
-        in_str = self.parser.getInputStream()
+        in_str: CommonTokenStream = self.parser.getInputStream()
         if ctx.start is not None:
             tok_ind = ctx.start.tokenIndex
             is_wsc = in_str.get(tok_ind - 1).type == Lexer.WS
