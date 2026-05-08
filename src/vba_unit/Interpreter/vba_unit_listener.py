@@ -7,7 +7,7 @@ from typing import TypedDict, TypeVar
 T = TypeVar('T', bound='VbaUnitListener')
 
 
-class VbaUnitModuleExtras(TypedDict):
+class VbaUnitModuleextra(TypedDict):
     path: str                              # The file path
     cover: bool                            # Track coverage on this file?
     coverage: list[None | int]             # lines covered
@@ -24,15 +24,15 @@ class VbaUnitListener(VbaListener):
         total_lines = eof_token.line
         name = self.module_name.lower()
         mod = self.table.definitions[self.project_name]["modules"][name]
-        extras: VbaUnitModuleExtras = {
+        extra: VbaUnitModuleextra = {
             "coverage": [0] * total_lines,
             "cover": True,
             "path": ''
         }
-        mod["extras"]["vba_unit"] = extras
+        mod["extra"]["vba_unit"] = extra
         # EOF line is ignored.
         # Need to test the case where EOF is on the same line as code.
-        mod["extras"]["vba_unit"]["coverage"][total_lines - 1] = None
+        mod["extra"]["vba_unit"]["coverage"][total_lines - 1] = None
         mod["coverage"][ctx.start.line - 1] = 1
 
     def enterCommentBody(                                          # noqa: N802
@@ -50,7 +50,7 @@ class VbaUnitListener(VbaListener):
                 index_num = ctx.start.line - 1
                 name = self.module_name.lower()
                 mods = self.table.definitions[self.project_name]["modules"]
-                mods[name]["extras"]["vba_unit"]["coverage"][index_num] = None
+                mods[name]["extra"]["vba_unit"]["coverage"][index_num] = None
 
     def enterEndOfLine(                                            # noqa: N802
             self: T,
@@ -67,4 +67,4 @@ class VbaUnitListener(VbaListener):
                 index_num = ctx.start.line - 1
                 name = self.module_name.lower()
                 mods = self.table.definitions[self.project_name]["modules"]
-                mods[name]["extras"]["vba_unit"]["coverage"][index_num] = None
+                mods[name]["extra"]["vba_unit"]["coverage"][index_num] = None
