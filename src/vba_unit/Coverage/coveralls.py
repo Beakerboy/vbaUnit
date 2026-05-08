@@ -36,12 +36,12 @@ class Coveralls(Coverage):
         return report
 
     def file_coverage(self: T, module: ModuleDefinition) -> dict:
-        file_path = module["extras"]["vba_unit"]["path"]
+        file_path = module["extra"]["vba_unit"]["path"]
         with open(file_path, 'r') as f:
             source_code = f.read()
         digest = hashlib.md5(source_code.encode('utf-8')).hexdigest()
         return {
             "name": file_path,
             "source_digest": digest,
-            "coverage": module["extras"]["vba_unit"]["coverage"],
+            "coverage": module["extra"]["vba_unit"]["coverage"],
         }
