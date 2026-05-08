@@ -1,13 +1,13 @@
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
-from vba_unit.Interpreter.coverage_table import CoverageTable
+from pyvba_interpreter.symbol_table import SymbolTable
 from vba_unit.Interpreter.vba_unit_listener import VbaUnitListener
 from vba_unit.Interpreter.vba_unit_visitor import VbaUnitVisitor
 
 
 def test_listener() -> None:
-    table = CoverageTable()
+    table = SymbolTable()
     input_stream = FileStream(
         "tests/src/VbaProject/Module1.bas",
         encoding="cp1252"
