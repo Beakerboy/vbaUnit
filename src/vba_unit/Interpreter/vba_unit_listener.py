@@ -1,14 +1,19 @@
 from antlr4_vba.vbaParser import vbaParser as Parser
 from antlr4_vba.vbaLexer import vbaLexer as Lexer
 from pyvba_interpreter.vba_listener import VbaListener
-from typing import TypeVar
+from typing import TypedDict, TypeVar
 
 
 T = TypeVar('T', bound='VbaUnitListener')
 
 
-class VbaUnitListener(VbaListener):
+class VbaUnitModuleExtras(TypedDict):
+    path: str                              # The file path
+    cover: bool                            # Track coverage on this file?
+    coverage: list[None | int]             # lines covered
 
+
+class VbaUnitListener(VbaListener):
     def enterProceduralModuleHeader(                               # noqa: N802
             self: T,
             ctx: Parser.ProceduralModuleHeaderContext) -> None:
@@ -19,10 +24,12 @@ class VbaUnitListener(VbaListener):
         total_lines = eof_token.line
         name = self.module_name.lower()
         mod = self.table.definitions[self.project_name]["modules"][name]
-        mod["extras"]["vba_unit"] = {
+        extras: VbaUnitModuleExtras = {
             "coverage": [0] * total_lines,
-            "cover": True
+            "cover": True,
+            "path" = ''
         }
+        mod["extras"]["vba_unit"] = extras
         # EOF line is ignored.
         # Need to test the case where EOF is on the same line as code.
         mod["extras"]["vba_unit"]["coverage"][total_lines - 1] = None
