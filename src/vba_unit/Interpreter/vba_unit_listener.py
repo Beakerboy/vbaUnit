@@ -64,7 +64,7 @@ class VbaUnitListener(VbaListener):
             ctx: Parser.EndOfLineContext) -> None:
         super().enterEndOfLine(ctx)
         in_str = cast(CommonTokenStream, self.parser.getTokenStream())
-        if ctx.start is not None:
+        if ctx.start is not None and ctx.start.tokenIndex is not None:
             tok_ind = ctx.start.tokenIndex
             is_wsc = in_str.get(tok_ind - 1).type == Lexer.WS
             if (
