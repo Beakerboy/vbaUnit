@@ -66,7 +66,7 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
             '"service_name": "manual", '
             '"service_job_id": "25396149145", '
             '"source_files": ['
-            '{"name": "./src/VbaProject/Module1.bas", '
+            '{"name": "src/VbaProject/Module1.bas", '
             '"source_digest": "e2c69c8e71acc93528dcbaa527cc30e7", '
             '"coverage": [1, 1, null, 1, 1, null]}], '
             '"git": {"head": {'
