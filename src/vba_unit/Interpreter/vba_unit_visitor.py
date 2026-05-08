@@ -16,7 +16,7 @@ class VbaUnitVisitor(VbaVisitor):
         self.current_line = 0
         super().__init__(table)
 
-    def visit(self: T, tree: Tree) -> Any: 
+    def visit(self: T, tree: Tree) -> Any:
         if isinstance(tree, ParserRuleContext):
             # Get the starting line number from the context
             # ANTLR line numbers are typically 1-indexed
@@ -29,7 +29,8 @@ class VbaUnitVisitor(VbaVisitor):
                     if line_num != self.current_line:
                         self.current_line = line_num
                         self.context_changed = False
-                        mods = self.table.definitions[self.context[0]]["modules"]
+                        name = self.context[0]
+                        mods = self.table.definitions[name]["modules"]
                         coverage = mods[self.context[1]]["coverage"]
                         coverage[line_num - 1] += 1
         # Call the original visit to continue traversal
@@ -69,4 +70,3 @@ class VbaUnitVisitor(VbaVisitor):
         result = super().run_function(defn, args)
         self.current_line = prev_line
         return result
-                
