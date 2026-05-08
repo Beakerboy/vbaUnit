@@ -23,35 +23,6 @@ class VbaUnitListener(VbaListener):
         mods[self.module_name.lower()]["coverage"][total_lines - 1] = None
         mods[self.module_name.lower()]["coverage"][ctx.start.line - 1] = 1
 
-    def enterFunctionDeclaration(                                  # noqa: N802
-            self: T,
-            ctx: Parser.FunctionDeclarationContext) -> None:
-        super().enterFunctionDeclaration(ctx)
-        mods = self.table.definitions[self.project_name]["modules"]
-        # func = mods[self.module_name.lower()]["functions"][name]
-        # func["start_stop"][0] = ctx.start.line
-
-
-    def exitFunctionDeclaration(                                   # noqa: N802
-            self: T,
-            ctx: Parser.FunctionDeclarationContext) -> None:
-        super().exitFunctionDeclaration(ctx)
-        mods = self.table.definitions[self.project_name]["modules"]
-        # func = mods[self.module_name.lower()]["functions"][name]
-        # func["start_stop"][1] = ctx.start.line
-
-    def enterSubroutineDeclaration(                                # noqa: N802
-            self: T,
-            ctx: Parser.SubroutineDeclarationContext) -> None:
-        super().enterSubroutineDeclaration(ctx)
-        # Add the start line number to the function definition
-
-    def exitSubroutineDeclaration(                                 # noqa: N802
-            self: T,
-            ctx: Parser.SubroutineDeclarationContext) -> None:
-        super().exitSubroutineDeclaration(ctx)
-        # Add the end line number to the function definition
-
     def enterCommentBody(                                          # noqa: N802
             self: T,
             ctx: Parser.CommentBodyContext) -> None:
