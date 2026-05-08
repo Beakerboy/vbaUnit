@@ -14,9 +14,6 @@ class VbaUnitVisitor(VbaVisitor):
 
     def __init__(self: T, table: CoverageTable) -> None:
         self.current_line = 0
-        # We need to add coverage for the edge condition where a line does not
-        # change, but the context does.
-        self.context_changed = False
         super().__init__(table)
 
     def visit(self: T, tree: Tree) -> Any: 
@@ -29,7 +26,7 @@ class VbaUnitVisitor(VbaVisitor):
                 mods = self.table.definitions[self.context[0]]["modules"]
                 if mods[self.context[1]]["cover"]:
                     line_num = tok.line
-                    if line_num != self.current_line or self.context_changed:
+                    if line_num != self.current_line:
                         self.context_changed = False
                         mods = self.table.definitions[self.context[0]]["modules"]
                         coverage = mods[self.context[1]]["coverage"]
@@ -58,5 +55,5 @@ class VbaUnitVisitor(VbaVisitor):
         if (self.context[0] != defn["project"] or
                 self.context[1] != defn["module"] or
                 self.context[2] != defn["name"]):
-            self.context_changed = True
+            self.current_line = 0
         return super().run_function(defn, args)
