@@ -31,8 +31,8 @@ class VbaUnitVisitor(VbaVisitor):
                         self.context_changed = False
                         name = self.context[0]
                         mods = self.table.definitions[name]["modules"]
-                        extras = mods[self.context[1]]["extras"]["vba_unit"]
-                        coverage = extras["coverage"]
+                        extra = mods[self.context[1]]["extra"]["vba_unit"]
+                        coverage = extra["coverage"]
                         coverage[line_num - 1] += 1
         # Call the original visit to continue traversal
         return super().visit(tree)
@@ -46,7 +46,7 @@ class VbaUnitVisitor(VbaVisitor):
         # is there a way to prohibit it from being touched...does it matter?
         line_num = ctx.stop.line
         mods = self.table.definitions[self.context[0]]["modules"]
-        coverage = mods[self.context[1]]["extras"]["vba_unit"]["coverage"]
+        coverage = mods[self.context[1]]["extra"]["vba_unit"]["coverage"]
         coverage[line_num - 1] += 1
 
         return super().visitFunctionDeclaration(ctx)
