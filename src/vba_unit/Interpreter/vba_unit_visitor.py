@@ -52,8 +52,12 @@ class VbaUnitVisitor(VbaVisitor):
     def run_function(self: T,
                      defn: VbaUnitFuncDef,
                      args: list[Any]) -> Any:
+        prev_line = self.current_line
         if (self.context[0] != defn["project"] or
                 self.context[1] != defn["module"] or
                 self.context[2] != defn["name"]):
             self.current_line = 0
-        return super().run_function(defn, args)
+        result = super().run_function(defn, args)
+        self.current_line = prev_line
+        return result
+                
