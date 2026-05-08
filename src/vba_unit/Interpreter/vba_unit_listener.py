@@ -3,7 +3,7 @@ from antlr4_vba.vbaParser import vbaParser as Parser
 from antlr4_vba.vbaLexer import vbaLexer as Lexer
 from pyvba_interpreter.symbol_table import SymbolTable
 from pyvba_interpreter.vba_listener import VbaListener
-from typing import TypedDict, TypeVar
+from typing import casy, TypedDict, TypeVar
 
 
 T = TypeVar('T', bound='VbaUnitListener')
