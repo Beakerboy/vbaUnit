@@ -38,10 +38,12 @@ class MockTable():
                     "roots": {
                         "name": "roots",
                         "extra": {
-                            "cover": True,
-                            "coverage": [1, None, None, None, None, None, None,
-                                         None, None, None, None, 1, 1, 1],
-                            "path": 'src/Modules/Roots.bas'
+                            "vba_unit": {
+                                "cover": True,
+                                "coverage": [1, None, None, None, None, None, None,
+                                             None, None, None, None, 1, 1, 1],
+                                "path": 'src/Modules/Roots.bas'
+                            }
                         }
                     }
                 }
