@@ -40,8 +40,10 @@ class MockTable():
                         "extra": {
                             "vba_unit": {
                                 "cover": True,
-                                "coverage": [1, None, None, None, None, None, None,
-                                             None, None, None, None, 1, 1, 1],
+                                "coverage": [1, None, None, None,
+                                             None, None, None,
+                                             None, None, None, None,
+                                             1, 1, 1],
                                 "path": 'src/Modules/Roots.bas'
                             }
                         }
