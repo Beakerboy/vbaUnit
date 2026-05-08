@@ -27,7 +27,7 @@ class VbaUnitListener(VbaListener):
         extras: VbaUnitModuleExtras = {
             "coverage": [0] * total_lines,
             "cover": True,
-            "path" = ''
+            "path": ''
         }
         mod["extras"]["vba_unit"] = extras
         # EOF line is ignored.
