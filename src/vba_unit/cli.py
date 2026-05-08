@@ -7,7 +7,7 @@ from antlr4_vba.vbaParser import vbaParser
 from typing import TypeVar
 from vba_unit.Coverage.coverage_factory import CovFact
 from vba_unit.Coverage.git_factory import GitFact
-from vba_unit.Interpreter.coverage_table import VbaUnitModDef, CoverageTable
+from pyvba_interpreter.symbol_table import SymbolTable
 from vba_unit.Interpreter.vba_unit_listener import VbaUnitListener
 from vba_unit.Interpreter.vba_unit_visitor import VbaUnitVisitor
 from vba_unit.test_fail_exception import TestFailException
@@ -52,7 +52,7 @@ def main() -> None:
     )
 
     args = parser.parse_args()
-    table = CoverageTable()
+    table = SymbolTable()
     run_tests(args.src, args.tests, args.project, table)
 
     # Submit Coverage
@@ -72,7 +72,7 @@ def main() -> None:
 
 
 def run_tests(src: str, tests: str,
-              project_name: str, table: CoverageTable) -> None:
+              project_name: str, table: SymbolTable) -> None:
     test_project_name = "vbatests"
 
     # Parse source code
@@ -95,7 +95,7 @@ def run_tests(src: str, tests: str,
     _generate_report(report)
 
 
-def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
+def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
     input_stream = FileStream(file_path, encoding="cp1252")
     lexer = vbaLexer(input_stream)
     ts = CommonTokenStream(lexer)
@@ -116,7 +116,7 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
 
 def _run_all_tests(
         test_modules: dict[str, VbaUnitModDef],
-        table: CoverageTable) -> list:
+        table: SymbolTable) -> list:
     report = []
     visitor = VbaUnitVisitor(table)
     for mod_name, module in test_modules.items():
