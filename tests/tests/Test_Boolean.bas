@@ -10,5 +10,5 @@ Sub Test_And()
     Debug.Assert TestValue
 End Sub
 Sub Test_Eval()
-    Debug.Assert Foo() = 1
+    Debug.Assert 1 = Foo()
 End Sub
