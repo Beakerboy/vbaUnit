@@ -3,7 +3,7 @@ import os
 from typing import TypeVar
 from vba_unit.Coverage.coverage import Coverage
 from vba_unit.Coverage.git_repo import GitRepo
-from pyvba_interpreter.symbol_table import SymbolTable
+from pyvba_interpreter.symbol_table import ModuleDefinition, SymbolTable
 
 
 T = TypeVar('T', bound='Coveralls')
