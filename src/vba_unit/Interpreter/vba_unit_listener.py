@@ -49,7 +49,7 @@ class VbaUnitListener(VbaListener):
         # Check if the token starts at column 1 or if the token before this is
         # a wsc and it starts at column 1
         in_str = self.parser.getInputStream()
-        if ctx.start is not None:
+        if ctx.start is not None and ctx.start.tokenIndex is not None:
             if (ctx.start.column == 0 or
                     in_str.get(ctx.start.tokenIndex - 1).column == 0):
                 # Comments cannot be the first token in a file, so
