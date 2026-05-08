@@ -4,7 +4,7 @@ import os
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
-from pyvba_interpreter.symbol_table import SymbolTable
+from pyvba_interpreter.symbol_table import ModuleDefinition, SymbolTable
 from typing import TypeVar
 from vba_unit.Coverage.coverage_factory import CovFact
 from vba_unit.Coverage.git_factory import GitFact
@@ -116,7 +116,7 @@ def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
 
 
 def _run_all_tests(
-        test_modules: dict[str, VbaUnitModDef],
+        test_modules: dict[str, ModuleDefinition],
         table: SymbolTable) -> list:
     report = []
     visitor = VbaUnitVisitor(table)
