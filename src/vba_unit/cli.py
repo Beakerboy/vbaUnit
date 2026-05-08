@@ -133,6 +133,7 @@ def _run_all_tests(
                     report.append(result)
     return report
 
+
 def _generate_report(results: list) -> None:
     print("\n--- VBA Test Report ---")
     passed = 0
