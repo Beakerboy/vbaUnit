@@ -3,7 +3,7 @@ import os
 from typing import TypeVar
 from vba_unit.Coverage.coverage import Coverage
 from vba_unit.Coverage.git_repo import GitRepo
-from vba_unit.Interpreter.coverage_table import CoverageTable, VbaUnitModDef
+from pyvba_interpreter.symbol_table import SymbolTable
 
 
 T = TypeVar('T', bound='Coveralls')
@@ -13,7 +13,7 @@ class Coveralls(Coverage):
     def __init__(self: T) -> None:
         self.endpoint = "https://coveralls.io/api/v1/jobs"
         self.git: GitRepo
-        self.table: CoverageTable
+        self.table: SymbolTable
 
     def generate_report(self: T) -> dict:
         source_files = []
@@ -35,7 +35,7 @@ class Coveralls(Coverage):
         }
         return report
 
-    def file_coverage(self: T, module: VbaUnitModDef) -> dict:
+    def file_coverage(self: T, module: ModuleDefinition) -> dict:
         file_path = module["path"]
         with open(file_path, 'r') as f:
             source_code = f.read()
