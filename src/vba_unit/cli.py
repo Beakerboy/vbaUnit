@@ -4,10 +4,10 @@ import os
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
+from pyvba_interpreter.symbol_table import ModuleDefinition, SymbolTable
 from typing import TypeVar
 from vba_unit.Coverage.coverage_factory import CovFact
 from vba_unit.Coverage.git_factory import GitFact
-from vba_unit.Interpreter.coverage_table import VbaUnitModDef, CoverageTable
 from vba_unit.Interpreter.vba_unit_listener import VbaUnitListener
 from vba_unit.Interpreter.vba_unit_visitor import VbaUnitVisitor
 from vba_unit.test_fail_exception import TestFailException
@@ -52,7 +52,7 @@ def main() -> None:
     )
 
     args = parser.parse_args()
-    table = CoverageTable()
+    table = SymbolTable()
     run_tests(args.src, args.tests, args.project, table)
 
     # Submit Coverage
@@ -72,7 +72,7 @@ def main() -> None:
 
 
 def run_tests(src: str, tests: str,
-              project_name: str, table: CoverageTable) -> None:
+              project_name: str, table: SymbolTable) -> None:
     test_project_name = "vbatests"
 
     # Parse source code
@@ -95,7 +95,7 @@ def run_tests(src: str, tests: str,
     _generate_report(report)
 
 
-def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
+def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
     input_stream = FileStream(file_path, encoding="cp1252")
     lexer = vbaLexer(input_stream)
     ts = CommonTokenStream(lexer)
@@ -107,16 +107,18 @@ def _parse_file(file_path: str, project: str, table: CoverageTable) -> None:
     walker.walk(listener, tree)
     mod_name = listener.module_name.lower()
     project = project.lower()
-    table.definitions[project]["modules"][mod_name]["path"] = file_path
+    mod = table.definitions[project]["modules"][mod_name]
+    extra = mod["extra"]["vba_unit"]
+    extra["path"] = file_path
     if project == "vbatests":
-        table.definitions[project]["modules"][mod_name]["cover"] = False
+        extra["cover"] = False
     else:
-        table.definitions[project]["modules"][mod_name]["cover"] = True
+        extra["cover"] = True
 
 
 def _run_all_tests(
-        test_modules: dict[str, VbaUnitModDef],
-        table: CoverageTable) -> list:
+        test_modules: dict[str, ModuleDefinition],
+        table: SymbolTable) -> list:
     report = []
     visitor = VbaUnitVisitor(table)
     for mod_name, module in test_modules.items():

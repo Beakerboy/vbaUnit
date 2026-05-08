@@ -1,12 +1,12 @@
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
-from vba_unit.Interpreter.coverage_table import CoverageTable
+from pyvba_interpreter.symbol_table import SymbolTable
 from vba_unit.Interpreter.vba_unit_listener import VbaUnitListener
 
 
 def test_listener() -> None:
-    table = CoverageTable()
+    table = SymbolTable()
     input_stream = FileStream(
         "tests/src/VbaProject/Module1.bas",
         encoding="cp1252"
@@ -19,9 +19,10 @@ def test_listener() -> None:
     listener.parser = parser
     walker = ParseTreeWalker()
     walker.walk(listener, tree)
+    mod = table.definitions["vbaproject"]["modules"]["module1"]
+    extra = mod["extra"]["vba_unit"]
+    assert extra["cover"]
 
-    assert table.definitions["vbaproject"]["modules"]["module1"]["cover"]
-
-    result = table.definitions["vbaproject"]["modules"]["module1"]["coverage"]
+    result = extra["coverage"]
     expected = [1, 0, None, 0, 0, None]
     assert result == expected

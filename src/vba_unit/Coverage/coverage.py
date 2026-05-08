@@ -2,7 +2,7 @@ import json
 import requests
 from typing import TypeVar
 from .git_repo import GitRepo
-from vba_unit.Interpreter.coverage_table import CoverageTable
+from pyvba_interpreter.symbol_table import SymbolTable
 
 
 T = TypeVar('T', bound='Coverage')
@@ -16,7 +16,7 @@ class Coverage():
     """
     def __init__(self: T) -> None:
         self.endpoint = ''
-        self.table: CoverageTable
+        self.table: SymbolTable
         self.git: GitRepo
 
     def generate_report(self: T) -> dict:
