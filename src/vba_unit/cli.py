@@ -46,7 +46,7 @@ def main() -> None:
     parser.add_argument(
         "-l",
         "--libraries",
-        nargs = '+',
+        nargs='+',
         help="The name of any libraries to include"
     )
     parser.add_argument(
@@ -59,6 +59,9 @@ def main() -> None:
 
     args = parser.parse_args()
     table = SymbolTable()
+    if "vba" in args.libraries:
+        from vba_stdlib.api import api
+        table.library_descriptions["vba"] = api
     run_tests(args.src, args.tests, args.project, table)
 
     # Submit Coverage
