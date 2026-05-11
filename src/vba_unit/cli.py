@@ -46,7 +46,7 @@ def main() -> None:
     parser.add_argument(
         "-l",
         "--libraries",
-        nargs = '+',
+        nargs='+',
         help="The name of any libraries to include"
     )
     parser.add_argument(
