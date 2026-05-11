@@ -44,6 +44,12 @@ def main() -> None:
         help="The name of the project"
     )
     parser.add_argument(
+        "-l",
+        "--libraries",
+        nargs = '+',
+        help="The name of any libraries to include"
+    )
+    parser.add_argument(
         "--coverage",
         default="no",
         const="coveralls",
