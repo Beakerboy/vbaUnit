@@ -59,9 +59,13 @@ def main() -> None:
 
     args = parser.parse_args()
     table = SymbolTable()
-    if args.libraries is not None and "vba" in args.libraries:
-        from vba_stdlib.api import api
-        table.library_definitions["vba"] = api
+    if args.libraries is not None:
+        if "vba" in args.libraries:
+            from vba_stdlib.api import api
+            table.library_definitions["vba"] = api
+        if "excel" in args.libraries:
+            from vba_excel_obj_lib.api import api_excel
+            table.library_definitions["excel"] = api_excel
     run_tests(args.src, args.tests, args.project, table)
 
     # Submit Coverage
