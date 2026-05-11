@@ -30,6 +30,7 @@ tests = [
   'pytest-mock',
   'types-antlr4-python3-runtime',
   'types-requests',
+  'vba_excel_obj_lib @ git+https://github.com/Beakerboy/Vba-Excel-Object-Library@dev'
   'vba_stdlib @ git+https://github.com/Beakerboy/VbaStdLib@dev'
 ]
 [project.urls]
