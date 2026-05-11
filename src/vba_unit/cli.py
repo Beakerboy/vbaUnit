@@ -61,7 +61,7 @@ def main() -> None:
     table = SymbolTable()
     if args.libraries is not None and "vba" in args.libraries:
         from vba_stdlib.api import api
-        table.library_descriptions["vba"] = api
+        table.library_definitions["vba"] = api
     run_tests(args.src, args.tests, args.project, table)
 
     # Submit Coverage
