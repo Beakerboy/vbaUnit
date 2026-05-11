@@ -61,10 +61,10 @@ def main() -> None:
     table = SymbolTable()
     if args.libraries is not None:
         if "vba" in args.libraries:
-            from vba_stdlib.api import api
-            table.library_definitions["vba"] = api
+            from vba_stdlib.api import api as api_vba
+            table.library_definitions["vba"] = api_vba
         if "excel" in args.libraries:
-            from vba_excel_obj_lib.api import api_excel
+            from vba_excel_obj_lib.api import api as api_excel
             table.library_definitions["excel"] = api_excel
     run_tests(args.src, args.tests, args.project, table)
 
