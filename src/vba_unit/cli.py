@@ -59,7 +59,7 @@ def main() -> None:
 
     args = parser.parse_args()
     table = SymbolTable()
-    if "vba" in args.libraries:
+    if args.libraries is not None and "vba" in args.libraries:
         from vba_stdlib.api import api
         table.library_descriptions["vba"] = api
     run_tests(args.src, args.tests, args.project, table)
