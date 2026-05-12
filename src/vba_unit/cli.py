@@ -161,16 +161,20 @@ def _run_all_tests(
     return report
 
 
-def _generate_report(results: list) -> None:
+def _generate_report(results: list) -> bool:
     print("\n--- VBA Test Report ---")
     passed = 0
+    failures = False
     for r in results:
         status = "PASS"
         if r.passed == TestResultValue.FAILED:
             status = f"FAIL: {r.error}"
+            failures = True
         elif r.passed == TestResultValue.EXCEPTION:
             status = f"EXCEPTION: {r.error}"
+            failures = True
         print(f"{r.name}: {status}")
         if r.passed == TestResultValue.PASS:
             passed += 1
     print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
+    return failures
