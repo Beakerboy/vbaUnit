@@ -154,7 +154,7 @@ def _run_all_tests(
                         result.error = str(e)
                     except Exception as ex:
                         result.passed = TestResult.EXCEPTION
-                        result.error = str(e)
+                        result.error = str(ex)
                     report.append(result)
     return report
 
