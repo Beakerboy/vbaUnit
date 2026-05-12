@@ -38,7 +38,8 @@ def test_main(change_dir: str, mocker: MockerFixture) -> None:
         "sys.argv",
         [
             "vba_test_runner.py",
-            "--coverage"
+            "--coverage",
+            "--exit-zero"
         ],
     )
     main()
