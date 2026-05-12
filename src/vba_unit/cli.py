@@ -1,6 +1,7 @@
 import argparse
 import glob
 import os
+import sys
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
