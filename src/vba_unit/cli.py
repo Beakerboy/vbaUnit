@@ -4,6 +4,7 @@ import os
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
+from enum import Enum
 from pyvba_interpreter.symbol_table import ModuleDefinition, SymbolTable
 from typing import TypeVar
 from vba_unit.Coverage.coverage_factory import CovFact
@@ -15,11 +16,17 @@ from vba_unit.test_fail_exception import TestFailException
 
 T = TypeVar('T', bound='TestResult')
 
+class TestResult(Enum):
+    PASS = 0
+    FAILED = 1
+    EXCEPTION = 2
+    NO_TEST = 3
+    WARNING = 4
 
 class TestResult:
     def __init__(self: T, name: str) -> None:
         self.name = name
-        self.passed = False
+        self.passed = TestResult.FAILED
         self.error = ""
 
 
@@ -141,9 +148,12 @@ def _run_all_tests(
                     result = TestResult(f"{mod_name}.{func_name}")
                     try:
                         visitor.run_function(func, [])
-                        result.passed = True
+                        result.passed = TestResult.PASS
                     except TestFailException as e:
-                        result.passed = False
+                        result.passed = TestResult.FAILED
+                        result.error = str(e)
+                    except Exception as ex
+                        result.passed = TestResult.EXCEPTION
                         result.error = str(e)
                     report.append(result)
     return report
@@ -153,7 +163,11 @@ def _generate_report(results: list) -> None:
     print("\n--- VBA Test Report ---")
     passed = 0
     for r in results:
-        status = "PASS" if r.passed else f"FAIL: {r.error}"
+        status = "PASS"
+        if r.passed == TestResult.FAILED:
+            status =  f"FAIL: {r.error}"
+        elif r.passed == TestResult.EXCEPTION:
+            status =  f"EXCEPTION: {r.error}"
         print(f"{r.name}: {status}")
         if r.passed:
             passed += 1
