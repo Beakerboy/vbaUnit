@@ -65,6 +65,10 @@ def main() -> None:
         nargs="?",
         help="Submit Code Coverage?"
     )
+    parser.add_argument(
+        "--exit-zero",
+        action="store_true",
+        help="Use the exit status code 0 even if there are errors.")
 
     args = parser.parse_args()
     table = SymbolTable()
@@ -75,7 +79,7 @@ def main() -> None:
         if "excel" in args.libraries:
             from vba_excel_obj_lib.api import api as api_excel
             table.library_definitions["excel"] = api_excel
-    run_tests(args.src, args.tests, args.project, table)
+    failures = run_tests(args.src, args.tests, args.project, table)
 
     # Submit Coverage
     if args.coverage != "no":
@@ -91,7 +95,9 @@ def main() -> None:
             message = result["message"]
             print(f"Job #{message}")
             print(result["url"])
-
+    if failures and not args.exit_zero:
+        exit_code = 1
+        sys.exit(exit_code)
 
 def run_tests(src: str, tests: str,
               project_name: str, table: SymbolTable) -> None:
