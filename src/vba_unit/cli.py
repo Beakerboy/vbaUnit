@@ -28,7 +28,7 @@ T = TypeVar('T', bound='TestResult')
 class TestResult:
     def __init__(self: T, name: str) -> None:
         self.name = name
-        self.passed = TestResult.FAILED
+        self.passed = TestResultValue.FAILED
         self.error = ""
 
 
