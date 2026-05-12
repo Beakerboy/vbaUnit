@@ -171,6 +171,6 @@ def _generate_report(results: list) -> None:
         elif r.passed == TestResultValue.EXCEPTION:
             status =  f"EXCEPTION: {r.error}"
         print(f"{r.name}: {status}")
-        if r.passed:
+        if r.passed == TestResultValue.PASS:
             passed += 1
     print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
