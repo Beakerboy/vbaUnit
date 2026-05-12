@@ -14,19 +14,21 @@ from vba_unit.Interpreter.vba_unit_visitor import VbaUnitVisitor
 from vba_unit.test_fail_exception import TestFailException
 
 
-T = TypeVar('T', bound='TestResult')
-
-class TestResult(Enum):
+class TestResultValue(Enum):
     PASS = 0
     FAILED = 1
     EXCEPTION = 2
     NO_TEST = 3
     WARNING = 4
 
+
+T = TypeVar('T', bound='TestResult')
+
+
 class TestResult:
     def __init__(self: T, name: str) -> None:
         self.name = name
-        self.passed = TestResult.FAILED
+        self.passed = TestResultValue.FAILED
         self.error = ""
 
 
@@ -66,9 +68,13 @@ def main() -> None:
 
     args = parser.parse_args()
     table = SymbolTable()
-    if "vba" in args.libraries:
-        from vba_stdlib.api import api
-        table.library_descriptions["vba"] = api
+    if args.libraries is not None:
+        if "vba" in args.libraries:
+            from vba_stdlib.api import api as api_vba
+            table.library_definitions["vba"] = api_vba
+        if "excel" in args.libraries:
+            from vba_excel_obj_lib.api import api as api_excel
+            table.library_definitions["excel"] = api_excel
     run_tests(args.src, args.tests, args.project, table)
 
     # Submit Coverage
@@ -144,13 +150,13 @@ def _run_all_tests(
                     result = TestResult(f"{mod_name}.{func_name}")
                     try:
                         visitor.run_function(func, [])
-                        result.passed = TestResult.PASS
+                        result.passed = TestResultValue.PASS
                     except TestFailException as e:
-                        result.passed = TestResult.FAILED
+                        result.passed = TestResultValue.FAILED
                         result.error = str(e)
                     except Exception as ex:
-                        result.passed = TestResult.EXCEPTION
-                        result.error = str(e)
+                        result.passed = TestResultValue.EXCEPTION
+                        result.error = str(ex)
                     report.append(result)
     return report
 
@@ -160,11 +166,11 @@ def _generate_report(results: list) -> None:
     passed = 0
     for r in results:
         status = "PASS"
-        if r.passed == TestResult.FAILED:
-            status =  f"FAIL: {r.error}"
-        elif r.passed == TestResult.EXCEPTION:
-            status =  f"EXCEPTION: {r.error}"
+        if r.passed == TestResultValue.FAILED:
+            status = f"FAIL: {r.error}"
+        elif r.passed == TestResultValue.EXCEPTION:
+            status = f"EXCEPTION: {r.error}"
         print(f"{r.name}: {status}")
-        if r.passed:
+        if r.passed == TestResultValue.PASS:
             passed += 1
     print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
