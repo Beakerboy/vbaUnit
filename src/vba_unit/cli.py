@@ -100,6 +100,7 @@ def main() -> None:
         exit_code = 1
         sys.exit(exit_code)
 
+
 def run_tests(src: str, tests: str,
               project_name: str, table: SymbolTable) -> None:
     test_project_name = "vbatests"
