@@ -167,9 +167,9 @@ def _generate_report(results: list) -> None:
     for r in results:
         status = "PASS"
         if r.passed == TestResultValue.FAILED:
-            status =  f"FAIL: {r.error}"
+            status = f"FAIL: {r.error}"
         elif r.passed == TestResultValue.EXCEPTION:
-            status =  f"EXCEPTION: {r.error}"
+            status = f"EXCEPTION: {r.error}"
         print(f"{r.name}: {status}")
         if r.passed == TestResultValue.PASS:
             passed += 1
