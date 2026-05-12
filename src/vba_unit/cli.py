@@ -148,7 +148,7 @@ def _run_all_tests(
                     except TestFailException as e:
                         result.passed = TestResult.FAILED
                         result.error = str(e)
-                    except Exception as ex
+                    except Exception as ex:
                         result.passed = TestResult.EXCEPTION
                         result.error = str(e)
                     report.append(result)
