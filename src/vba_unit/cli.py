@@ -102,7 +102,7 @@ def main() -> None:
 
 
 def run_tests(src: str, tests: str,
-              project_name: str, table: SymbolTable) -> None:
+              project_name: str, table: SymbolTable) -> bool:
     test_project_name = "vbatests"
 
     # Parse source code
@@ -122,7 +122,7 @@ def run_tests(src: str, tests: str,
     if test_project_name in table.definitions:
         test_modules = table.definitions[test_project_name]["modules"]
         report = _run_all_tests(test_modules, table)
-    _generate_report(report)
+    return _generate_report(report)
 
 
 def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
