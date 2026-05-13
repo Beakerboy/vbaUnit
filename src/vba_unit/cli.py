@@ -163,8 +163,9 @@ def _run_all_tests(
                         result.passed = TestResultValue.FAILED
                         result.error = str(e)
                     except Exception as ex:
+                        exc_type = type(ex).__name__
                         result.passed = TestResultValue.EXCEPTION
-                        result.error = str(ex)
+                        result.error = f"{exc_type}: {ex}"
                     report.append(result)
     return report
 
