@@ -2,6 +2,7 @@ import argparse
 import glob
 import os
 import sys
+import traceback
 from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
@@ -165,7 +166,8 @@ def _run_all_tests(
                     except Exception as ex:
                         exc_type = type(ex).__name__
                         result.passed = TestResultValue.EXCEPTION
-                        result.error = f"{exc_type}: {ex}"
+                        tb = traceback.format_exc()
+                        result.error = f"{exc_type}: {ex} \n{tb}"
                     report.append(result)
     return report
 
