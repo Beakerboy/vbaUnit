@@ -61,7 +61,11 @@ class VbaUnitVisitor(VbaVisitor):
         # an error should probably be thrown
         expr = self.visit(ctx.booleanExpression())
         if not expr:
-            raise TestFailException()
+            msg = ""
+            env = self.env_stack[-1]
+            if "vbatest_msg" in env:
+                msg = env["vbatest_msg"].value
+            raise TestFailException(msg)
 
     def run_function(self: T,
                      defn: FunctionDefinition | LibraryDefinition,
