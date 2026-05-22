@@ -75,3 +75,14 @@ class VbaUnitListener(VbaListener):
                 name = self.module_name.lower()
                 mods = self.table.definitions[self.project_name]["modules"]
                 mods[name]["extra"]["vba_unit"]["coverage"][index_num] = None
+
+  def enterProcedureTail(                                          # noqa: N802
+            self: T,
+            ctx: Parser.ProcedureTailContext) -> None:
+        super().enterProcedureTail(ctx)
+        num_newline = ctx.getText().count('\n') - 1
+        name = self.module_name.lower()
+        mods = self.table.definitions[self.project_name]["modules"]
+        for i in range(num_newline):
+            index_num = ctx.start.line + i
+            mods[name]["extra"]["vba_unit"]["coverage"][index_num] = None
