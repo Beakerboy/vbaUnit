@@ -1,0 +1,33 @@
+import json
+import requests
+from typing import TypeVar
+from .git_repo import GitRepo
+from pyvba_interpreter.symbol_table import SymbolTable
+
+
+T = TypeVar('T', bound='Coverage')
+
+
+class Coverage():
+    """
+    Send a json string to a service provider. The implementing class shall
+    create the string from the data in CoverageTable and the class implementing
+    GitRepo.
+    """
+    def __init__(self: T) -> None:
+        self.endpoint = ''
+        self.table: SymbolTable
+        self.git: GitRepo
+
+    def generate_report(self: T) -> dict:
+        raise Exception("Must be implemented by an extending class")
+
+    def submit_report(self: T) -> dict:
+        report = self.generate_report()
+        response = requests.post(
+            self.endpoint, files={'json_file': json.dumps(report)})
+        return response.json()
+        # should either use response.raise_for_status() to raise
+        # an exception if 5xx or 4xx errors or inspect
+        # response.status_code.
+        # Pass response instead of response.json?

@@ -1,0 +1,191 @@
+import argparse
+import glob
+import os
+import sys
+import traceback
+from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
+from antlr4_vba.vbaLexer import vbaLexer
+from antlr4_vba.vbaParser import vbaParser
+from enum import Enum
+from pyvba_interpreter.symbol_table import ModuleDefinition, SymbolTable
+from typing import TypeVar
+from vba_unit.Coverage.coverage_factory import CovFact
+from vba_unit.Coverage.git_factory import GitFact
+from vba_unit.Interpreter.vba_unit_listener import VbaUnitListener
+from vba_unit.Interpreter.vba_unit_visitor import VbaUnitVisitor
+from vba_unit.test_fail_exception import TestFailException
+
+
+class TestResultValue(Enum):
+    PASS = 0
+    FAILED = 1
+    EXCEPTION = 2
+    NO_TEST = 3
+    WARNING = 4
+
+
+T = TypeVar('T', bound='TestResult')
+
+
+class TestResult:
+    def __init__(self: T, name: str) -> None:
+        self.name = name
+        self.passed = TestResultValue.FAILED
+        self.error = ""
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="VBA ANTLR Test Runner")
+    parser.add_argument(
+        "--src",
+        type=str,
+        default="src",
+        help="The path to your project."
+    )
+    parser.add_argument(
+        "--tests",
+        type=str,
+        default="./tests",
+        help="The path to the test files"
+    )
+    parser.add_argument(
+        "--project",
+        type=str,
+        default="VbaProject",
+        help="The name of the project"
+    )
+    parser.add_argument(
+        "-l",
+        "--libraries",
+        nargs='+',
+        help="The name of any libraries to include"
+    )
+    parser.add_argument(
+        "--coverage",
+        default="no",
+        const="coveralls",
+        nargs="?",
+        help="Submit Code Coverage?"
+    )
+    parser.add_argument(
+        "--exit-zero",
+        action="store_true",
+        help="Use the exit status code 0 even if there are errors.")
+
+    args = parser.parse_args()
+    table = SymbolTable()
+    if args.libraries is not None:
+        if "vba" in args.libraries:
+            from vba_stdlib.api import api as api_vba
+            table.library_definitions["vba"] = api_vba
+        if "excel" in args.libraries:
+            from vba_excel_obj_lib.api import api as api_excel
+            table.library_definitions["excel"] = api_excel
+    failures = run_tests(args.src, args.tests, args.project, table)
+
+    # Submit Coverage
+    if args.coverage != "no":
+        coverage = CovFact.provider(args.coverage)
+        coverage.git = GitFact.provider("github")
+        coverage.table = table
+        print("Submitting coverage to coveralls.io...")
+        result = coverage.submit_report()
+        if "error" in result:
+            print("Error running coveralls:")
+        else:
+            print("Coverage submitted!")
+            message = result["message"]
+            print(f"Job #{message}")
+            print(result["url"])
+    if failures and not args.exit_zero:
+        exit_code = 1
+        sys.exit(exit_code)
+
+
+def run_tests(src: str, tests: str,
+              project_name: str, table: SymbolTable) -> bool:
+    test_project_name = "vbatests"
+
+    # Parse source code
+    src_pattern = os.path.join(src, '*', '*.bas')
+    src_files = glob.glob(src_pattern)
+    for file_path in src_files:
+        _parse_file(file_path, project_name, table)
+
+    # Parse test code
+    test_pattern = os.path.join(tests, '*.bas')
+    test_files = glob.glob(test_pattern)
+    for file_path in test_files:
+        _parse_file(file_path, test_project_name, table)
+
+    # Find and Execute Tests
+    report = []
+    if test_project_name in table.definitions:
+        test_modules = table.definitions[test_project_name]["modules"]
+        report = _run_all_tests(test_modules, table)
+    return _generate_report(report)
+
+
+def _parse_file(file_path: str, project: str, table: SymbolTable) -> None:
+    input_stream = FileStream(file_path, encoding="cp1252")
+    lexer = vbaLexer(input_stream)
+    ts = CommonTokenStream(lexer)
+    parser = vbaParser(ts)
+    tree = parser.startRule()
+    listener = VbaUnitListener(project.lower(), table)
+    listener.parser = parser
+    walker = ParseTreeWalker()
+    walker.walk(listener, tree)
+    mod_name = listener.module_name.lower()
+    project = project.lower()
+    mod = table.definitions[project]["modules"][mod_name]
+    extra = mod["extra"]["vba_unit"]
+    extra["path"] = file_path
+    if project == "vbatests":
+        extra["cover"] = False
+    else:
+        extra["cover"] = True
+
+
+def _run_all_tests(
+        test_modules: dict[str, ModuleDefinition],
+        table: SymbolTable) -> list:
+    report = []
+    visitor = VbaUnitVisitor(table)
+    for mod_name, module in test_modules.items():
+        if mod_name.startswith("test"):
+            for func_name, func in module["functions"].items():
+                if func_name.startswith("test"):
+                    result = TestResult(f"{mod_name}.{func_name}")
+                    try:
+                        visitor.run_function(func, [])
+                        result.passed = TestResultValue.PASS
+                    except TestFailException as e:
+                        result.passed = TestResultValue.FAILED
+                        result.error = str(e)
+                    except Exception as ex:
+                        exc_type = type(ex).__name__
+                        result.passed = TestResultValue.EXCEPTION
+                        tb = traceback.format_exc()
+                        result.error = f"{exc_type}: {ex} \n{tb}"
+                    report.append(result)
+    return report
+
+
+def _generate_report(results: list) -> bool:
+    print("\n--- VBA Test Report ---")
+    passed = 0
+    failures = False
+    for r in results:
+        status = "PASS"
+        if r.passed == TestResultValue.FAILED:
+            status = f"FAIL: {r.error}"
+            failures = True
+        elif r.passed == TestResultValue.EXCEPTION:
+            status = f"EXCEPTION: {r.error}"
+            failures = True
+        print(f"{r.name}: {status}")
+        if r.passed == TestResultValue.PASS:
+            passed += 1
+    print(f"-----------------------\nSummary: {passed}/{len(results)} passed.")
+    return failures
