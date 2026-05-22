@@ -67,6 +67,15 @@ class VbaUnitVisitor(VbaVisitor):
                 msg = env["vbatest_msg"].value
             raise TestFailException(msg)
 
+    def visitIfStatement(                                          # noqa: N802
+            self: T,
+            ctx: Parser.IfStatementContext) -> None:
+        if ctx.stop is not None:
+            line_num = ctx.stop.line
+            mods = self.table.definitions[self.context[0]]["modules"]
+            coverage = mods[self.context[1]]["extra"]["vba_unit"]["coverage"]
+            coverage[line_num - 1] += 1
+
     def run_function(self: T,
                      defn: FunctionDefinition | LibraryDefinition,
                      args: list[Any]) -> Any:
