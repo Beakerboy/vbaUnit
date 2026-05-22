@@ -76,7 +76,7 @@ class VbaUnitListener(VbaListener):
                 mods = self.table.definitions[self.project_name]["modules"]
                 mods[name]["extra"]["vba_unit"]["coverage"][index_num] = None
 
-  def enterProcedureTail(                                          # noqa: N802
+    def enterProcedureTail(                                        # noqa: N802
             self: T,
             ctx: Parser.ProcedureTailContext) -> None:
         super().enterProcedureTail(ctx)
