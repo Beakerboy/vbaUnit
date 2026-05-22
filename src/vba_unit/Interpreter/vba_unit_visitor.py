@@ -75,6 +75,7 @@ class VbaUnitVisitor(VbaVisitor):
             mods = self.table.definitions[self.context[0]]["modules"]
             coverage = mods[self.context[1]]["extra"]["vba_unit"]["coverage"]
             coverage[line_num - 1] += 1
+        return super().visitIfStatement(ctx)
 
     def run_function(self: T,
                      defn: FunctionDefinition | LibraryDefinition,
