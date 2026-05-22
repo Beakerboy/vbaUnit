@@ -77,6 +77,16 @@ class VbaUnitVisitor(VbaVisitor):
             coverage[line_num - 1] += 1
         return super().visitIfStatement(ctx)
 
+    def visitForStatement(                                         # noqa: N802
+            self: T,
+            ctx: Parser.ForStatementContext) -> None:
+        if ctx.stop is not None:
+            line_num = ctx.stop.line
+            mods = self.table.definitions[self.context[0]]["modules"]
+            coverage = mods[self.context[1]]["extra"]["vba_unit"]["coverage"]
+            coverage[line_num - 1] += 1
+        return super().visitForStatement(ctx)
+
     def run_function(self: T,
                      defn: FunctionDefinition | LibraryDefinition,
                      args: list[Any]) -> Any:
