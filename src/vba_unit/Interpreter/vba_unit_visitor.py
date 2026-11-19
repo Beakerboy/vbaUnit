@@ -27,7 +27,8 @@ class VbaUnitVisitor(VbaVisitor):
 
         if tok is not None:
             proj_name, mod_name = self.context[0], self.context[1]
-            vba_unit = self.table.definitions[proj_name]["modules"][mod_name]["extra"]["vba_unit"]
+            proj = self.table.definitions[proj_name]
+            vba_unit = proj["modules"][mod_name]["extra"]["vba_unit"]
 
             if vba_unit["cover"]:
                 line_num = tok.line
