@@ -7,7 +7,9 @@ from antlr4 import FileStream, CommonTokenStream, ParseTreeWalker
 from antlr4_vba.vbaLexer import vbaLexer
 from antlr4_vba.vbaParser import vbaParser
 from enum import Enum
-from pyvba_interpreter.symbol_table import ModuleDefinition, SymbolTable
+from pyvba_interpreter.symbol_table import (
+    ModuleDefinition, SymbolTable, LibProjectDefinition
+)
 from typing import TypeVar
 from vba_unit.Coverage.coverage_factory import CovFact
 from vba_unit.Coverage.git_factory import GitFact
@@ -77,7 +79,7 @@ def main() -> None:
     if args.libraries is not None:
         if "vba" in args.libraries:
             from vba_stdlib.api import api as api_vba
-            table.library_definitions["vba"] = api_vba
+            table.library_definitions["vba"]: LibProjectDefinition = api_vba
         if "excel" in args.libraries:
             from vba_excel_obj_lib.api import api as api_excel
             table.library_definitions["excel"] = api_excel
