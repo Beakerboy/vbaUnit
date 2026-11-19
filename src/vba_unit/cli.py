@@ -79,8 +79,7 @@ def main() -> None:
     if args.libraries is not None:
         if "vba" in args.libraries:
             from vba_stdlib.api import api as api_vba
-            vba_def: dict[str, Collection[str]] = api_vba
-            table.library_definitions["vba"] = vba_def
+            table.library_definitions["vba"] = api_vba
         if "excel" in args.libraries:
             from vba_excel_obj_lib.api import api as api_excel
             table.library_definitions["excel"] = api_excel
