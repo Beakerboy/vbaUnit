@@ -10,7 +10,7 @@ from enum import Enum
 from pyvba_interpreter.symbol_table import (
     ModuleDefinition, SymbolTable
 )
-from typing import TypeVar
+from typing import Collection, TypeVar
 from vba_unit.Coverage.coverage_factory import CovFact
 from vba_unit.Coverage.git_factory import GitFact
 from vba_unit.Interpreter.vba_unit_listener import VbaUnitListener
