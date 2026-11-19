@@ -19,26 +19,28 @@ class VbaUnitVisitor(VbaVisitor):
         super().__init__(table)
 
     def visit(self: T, tree: Tree) -> Any:
-        if isinstance(tree, ParserRuleContext):
-            # Get the starting line number from the context
-            # ANTLR line numbers are typically 1-indexed
-            tok = tree.start
-            prev_line = self.current_line
-            if tok is not None:
-                mods = self.table.definitions[self.context[0]]["modules"]
-                if mods[self.context[1]]["extra"]["vba_unit"]["cover"]:
-                    line_num = tok.line
-                    if line_num != self.current_line:
-                        self.current_line = line_num
-                        self.context_changed = False
-                        name = self.context[0]
-                        mods = self.table.definitions[name]["modules"]
-                        extra = mods[self.context[1]]["extra"]["vba_unit"]
-                        coverage = extra["coverage"]
+        if not isinstance(tree, ParserRuleContext):
+            return super().visit(tree)
+
+        prev_line = self.current_line
+        tok = tree.start
+
+        if tok is not None:
+            proj_name, mod_name = self.context[0], self.context[1]
+            vba_unit = self.table.definitions[proj_name]["modules"][mod_name]["extra"]["vba_unit"]
+
+            if vba_unit["cover"]:
+                line_num = tok.line
+                if line_num != self.current_line:
+                    self.current_line = line_num
+                    self.context_changed = False
+                    coverage = vba_unit["coverage"]
+                    if coverage[line_num - 1] is not None:
                         coverage[line_num - 1] += 1
-        # Call the original visit to continue traversal
-        return super().visit(tree)
-        self.current_line = prev_line
+        try:
+            return super().visit(tree)
+        finally:
+            self.current_line = prev_line
 
     def visitFunctionDeclaration(                                  # noqa: N802
             self: T,
